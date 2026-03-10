@@ -4,6 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Validar Certificados – AFP Habitat</title>
+  
+  <link rel="icon" href="https://www.google.com/s2/favicons?domain=afphabitat.cl&sz=128" type="image/png" />
+  
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,12 +20,10 @@
     .top-bar-right { margin-left: auto; display: flex; align-items: center; }
     .btn-sucursal { background: #f5a623; color: #fff; padding: 6px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 6px; }
 
-    /* ── LOGO BAR (Blanca) ── */
+    /* ── LOGO BAR & RIBBON ── */
     .logo-bar { background: #fff; padding: 0 40px; display: flex; align-items: center; height: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.06); position: relative; z-index: 10; }
     .logo-bar img { height: 42px; object-fit: contain; }
-    
-    /* ── CINTA "CÁMBIATE" (Ribbon) ── */
-    .cambiate-ribbon { background: #cc292b; color: #fff; width: 84px; height: 100px; align-self: flex-start; clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%); display: flex; flex-direction: column; align-items: center; padding-top: 26px; font-weight: 700; font-size: 0.85rem; text-decoration: none; margin-left: 30px; margin-right: 16px; position: relative; cursor: pointer; transition: background .2s; }
+    .cambiate-ribbon { background: #cc292b; color: #fff; width: 84px; height: 100px; align-self: flex-start; clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%); display: flex; flex-direction: column; align-items: center; padding-top: 26px; font-weight: 700; font-size: 0.85rem; text-decoration: none; margin-left: 30px; margin-right: 16px; cursor: pointer; transition: background .2s; }
     .cambiate-ribbon:hover { background: #b02022; }
     .cambiate-ribbon svg { margin-top: 2px; width: 14px; height: 14px; }
 
@@ -33,51 +34,44 @@
     .search-box { margin-left: auto; display: flex; align-items: center; background: #aeb8c2; border-radius: 20px; padding: 6px 14px; width: 220px; }
     .search-box input { border: none; background: transparent; color: #fff; outline: none; font-family: 'Roboto', sans-serif; font-size: 0.85rem; width: 100%; }
     .search-box input::placeholder { color: #e0e5eb; }
-    .search-box svg { color: #fff; width: 16px; height: 16px; }
 
-    /* ── BREADCRUMB ── */
+    /* ── BREADCRUMB & MAIN ── */
     .breadcrumb { padding: 20px 40px 10px; font-size: 0.82rem; color: #888; max-width: 900px; margin: 0 auto; width: 100%; }
     .breadcrumb a { color: #1a7cbf; text-decoration: none; }
-
-    /* ── MAIN ── */
     main { flex: 1; padding: 10px 40px 60px; display: flex; justify-content: center; }
     .page-wrap { width: 100%; max-width: 900px; }
     .page-title { font-size: 1.6rem; font-weight: 400; color: #333; margin-bottom: 24px; }
 
-    /* ── FORM BOX ── */
+    /* ── FORM ── */
     .form-box { background: #fff; border: 1px solid #e5e5e5; padding: 36px 48px; margin: 0 auto; }
     .form-desc { font-size: 0.85rem; color: #666; line-height: 1.6; margin-bottom: 32px; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; }
-
     .folio-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px; }
     .folio-label { font-size: 0.9rem; color: #555; text-align: center; }
     .folio-input-wrap { display: flex; flex-direction: column; align-items: center; }
     .folio-input-wrap input { width: 260px; padding: 10px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; font-family: 'Roboto', sans-serif; outline: none; text-align: center; }
     .folio-input-wrap input:focus { border-color: #5b8b9e; }
     .folio-link { font-size: 0.78rem; color: #1a7cbf; text-decoration: underline; margin-top: 8px; }
-
     .btn-row { display: flex; justify-content: center; }
-    .btn-validar { background: #5b8b9e; color: #fff; border: none; padding: 10px 36px; font-size: 0.95rem; font-weight: 500; border-radius: 4px; cursor: pointer; font-family: 'Roboto', sans-serif; transition: background .2s; }
+    .btn-validar { background: #5b8b9e; color: #fff; border: none; padding: 10px 36px; font-size: 0.95rem; font-weight: 500; border-radius: 4px; cursor: pointer; transition: background .2s; }
     .btn-validar:hover { background: #4a7485; }
     .btn-validar:disabled { background: #a2b9c4; cursor: not-allowed; }
 
-    /* ── SPINNER / RESULT ── */
+    /* ── RESULTADOS ── */
     .spinner { display: none; text-align: center; padding: 20px 0; }
     .spinner.active { display: block; }
     .spinner svg { animation: spin .9s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .result-box { display: none; margin-top: 24px; border-radius: 4px; overflow: hidden; border: 1px solid #ddd; }
     .result-box.visible { display: block; }
     .result-header { padding: 12px 18px; font-size: 1rem; text-align: center; }
     .result-body { padding: 16px; background: #fff; }
     .result-body .name { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; text-align: center; color: #1a365d; }
 
-    /* ── FLOATING BUTTONS (Derecha) ── */
+    /* ── FLOATING BUTTONS ── */
     .floating-menu { position: fixed; right: 0; top: 40%; display: flex; flex-direction: column; gap: 6px; z-index: 100; transform: translateY(-50%); }
     .float-btn { width: 50px; height: 46px; border-radius: 6px 0 0 6px; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: -2px 2px 6px rgba(0,0,0,0.1); transition: width 0.2s; text-decoration: none; }
     .float-btn:hover { width: 56px; }
     .float-btn.red { background: #cc292b; height: 60px; flex-direction: column; font-size: 0.6rem; font-weight: 700; gap: 4px; }
-    .float-btn.red svg { width: 22px; height: 22px; }
     .float-btn.dark { background: #1a2744; }
     .float-btn.blue { background: #0087b4; }
     .float-btn.orange { background: #f5a623; }
@@ -88,35 +82,25 @@
     .footer-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; font-size: 0.8rem; }
     .footer-col h4 { color: #fff; font-weight: 600; margin-bottom: 16px; font-size: 0.85rem; }
     .footer-col a { display: block; color: #b0bcd4; text-decoration: none; margin-bottom: 8px; }
-    .footer-col a:hover { color: #fff; text-decoration: underline; }
-    
     .footer-contact { background: #89b8c9; color: #fff; padding: 40px 40px 20px; flex: 1; display: flex; flex-direction: column; }
     .footer-contact h4 { font-size: 0.9rem; margin-bottom: 16px; }
     .contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 0.85rem; font-weight: 500; }
-    
     .footer-bottom { background: #0a1833; color: #667899; text-align: center; padding: 16px; font-size: 0.75rem; width: 100%; }
 
-    /* ── MOBILE RESPONSIVE ── */
+    /* ── MOBILE ── */
     @media (max-width: 900px) {
       .top-bar { height: auto; flex-wrap: wrap; padding: 8px 16px; justify-content: center; gap: 10px; }
       .top-bar-tabs { width: 100%; justify-content: center; }
-      .top-bar-tabs a { padding: 8px 16px; }
-      .top-bar-tabs a.active { border-radius: 4px; }
-      .top-bar-right { margin-left: 0; }
-      
       .logo-bar { height: auto; padding: 12px 16px; flex-wrap: wrap; gap: 12px; justify-content: center; }
-      .cambiate-ribbon { height: auto; width: auto; clip-path: none; padding: 8px 16px; align-self: center; border-radius: 4px; margin: 0; font-size: 0.8rem; flex-direction: row; gap: 6px; }
+      .cambiate-ribbon { height: auto; width: auto; clip-path: none; padding: 8px 16px; align-self: center; border-radius: 4px; margin: 0; flex-direction: row; gap: 6px; }
       .cambiate-ribbon svg { transform: rotate(-90deg); margin-top: 0; }
-      .main-nav-links { display: none; } /* Hide long nav on mobile */
+      .main-nav-links { display: none; }
       .search-box { margin-left: 0; width: 100%; }
-      
       .breadcrumb { padding: 16px; }
       main { padding: 10px 16px 40px; }
       .form-box { padding: 24px 16px; }
       .folio-row { flex-direction: column; gap: 10px; }
-      
-      .floating-menu { display: none; } /* Hide floating buttons on small screens */
-      
+      .floating-menu { display: none; }
       .footer-wrapper { flex-direction: column; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
     }
@@ -131,49 +115,29 @@
     <a href="#">INVERSIONISTAS</a>
   </div>
   <div class="top-bar-right">
-    <a href="#" class="btn-sucursal">
-      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      Sucursal virtual
-    </a>
+    <a href="#" class="btn-sucursal">Sucursal virtual</a>
   </div>
 </div>
 
 <div class="logo-bar">
   <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20HABITAT.png" alt="AFP Habitat"/>
-  
   <a href="#" class="cambiate-ribbon">
     Cámbiate
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
   </a>
-
   <nav class="main-nav-links">
     <a href="#">Productos <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
     <a href="#">Pensiones <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
     <a href="#">Multifondos <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
-    <a href="#">Herramientas y Servicios <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
-    <a href="#">Ayuda <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
   </nav>
-
-  <div class="search-box">
-    <input type="text" placeholder="¿Qué buscas?"/>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-  </div>
+  <div class="search-box"><input type="text" placeholder="¿Qué buscas?"/></div>
 </div>
 
 <div class="floating-menu">
-  <a href="#" class="float-btn red">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>
-    Cámbiate
-  </a>
-  <div class="float-btn dark">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
-  </div>
-  <div class="float-btn blue">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-  </div>
-  <div class="float-btn orange">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-  </div>
+  <a href="#" class="float-btn red">Cámbiate</a>
+  <div class="float-btn dark">♿</div>
+  <div class="float-btn blue">📍</div>
+  <div class="float-btn orange">📄</div>
 </div>
 
 <div class="breadcrumb">
@@ -183,10 +147,8 @@
 <main>
   <div class="page-wrap">
     <h1 class="page-title">Validar Certificados</h1>
-    
     <div class="form-box">
       <p class="form-desc">Esta herramienta permite que las distintas Instituciones Financieras, Entidades Públicas, Privados y otros, puedan validar la vigencia y veracidad de los certificados emitidos por los distintos canales de atención de AFP Habitat. Sucursales, Habiexpress, Contact Center y Canal Internet.</p>
-
       <div class="folio-row">
         <div class="folio-label">Ingresa el folio del<br/>certificado a validar</div>
         <div class="folio-input-wrap">
@@ -194,18 +156,14 @@
           <a href="#" class="folio-link">¿Dónde encuentro el folio de un certificado?</a>
         </div>
       </div>
-
-      <div class="btn-row">
-        <button class="btn-validar" id="btn-validar" onclick="validar()">Validar</button>
-      </div>
-
+      <div class="btn-row"><button class="btn-validar" id="btn-validar" onclick="validar()">Validar</button></div>
+      
       <div class="spinner" id="spinner">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="10" stroke="#e0e0e0" stroke-width="3"/>
           <path d="M12 2a10 10 0 0 1 10 10" stroke="#5b8b9e" stroke-width="3" stroke-linecap="round"/>
         </svg>
       </div>
-
       <div class="result-box" id="result-box">
         <div class="result-header" id="result-header"></div>
         <div class="result-body" id="result-body"></div>
@@ -217,103 +175,58 @@
 <div class="footer-wrapper">
   <div class="footer-dark">
     <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Productos</h4>
-        <a href="#">Tu APV</a>
-        <a href="#">Tu Cuenta 2</a>
-        <a href="#">Tu Depósito Convenido</a>
-      </div>
-      <div class="footer-col">
-        <h4>Servicios</h4>
-        <a href="#">Certificados y Trámites</a>
-        <a href="#">Descarga de Formularios</a>
-        <a href="#">Tu Depósito Directo en Línea</a>
-      </div>
-      <div class="footer-col">
-        <h4>Nuestra Empresa</h4>
-        <a href="#">Certificado de Seguridad</a>
-        <a href="#">Comisiones Habitat</a>
-        <a href="#">Conversatorios</a>
-      </div>
-      <div class="footer-col">
-        <h4>Sitios Externos</h4>
-        <a href="#">Consulta Rezagos</a>
-        <a href="#">Información Enersis y Endesa</a>
-      </div>
-      <div class="footer-col">
-        <h4>Ayuda</h4>
-        <a href="#">Canales de Atención</a>
-        <a href="#">Canal de Denuncias</a>
-        <a href="#">Consejos de Seguridad</a>
-      </div>
+      <div class="footer-col"><h4>Productos</h4><a href="#">Tu APV</a></div>
+      <div class="footer-col"><h4>Servicios</h4><a href="#">Certificados y Trámites</a></div>
+      <div class="footer-col"><h4>Nuestra Empresa</h4><a href="#">Certificado de Seguridad</a></div>
+      <div class="footer-col"><h4>Sitios Externos</h4><a href="#">Consulta Rezagos</a></div>
+      <div class="footer-col"><h4>Ayuda</h4><a href="#">Canales de Atención</a></div>
     </div>
   </div>
   <div class="footer-contact">
     <h4>Canales de Atención</h4>
-    <div class="contact-item">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      600 220 2000 - Contact Center
-    </div>
-    <div class="contact-item">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-      +569 2416 8200 - Desde el extranjero
-    </div>
+    <div class="contact-item">📞 600 220 2000 - Contact Center</div>
+    <div class="contact-item">📱 +569 2416 8200 - Extranjero</div>
   </div>
 </div>
 <div class="footer-bottom">&copy; 2026 AFP Habitat S.A. Todos los derechos reservados</div>
 
 <script>
   const WEBHOOK = 'https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
-
   async function validar() {
     const folio = document.getElementById('folio').value.trim();
-    const uuid  = folio;
     if (!folio) return;
-    const btn = document.getElementById('btn-validar');
-    btn.disabled = true;
+    document.getElementById('btn-validar').disabled = true;
     document.getElementById('spinner').classList.add('active');
     document.getElementById('result-box').classList.remove('visible');
-
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
-
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ uuid: uuid, afp: 'Habitat' }), signal: controller.signal
+        body: JSON.stringify({ uuid: folio, afp: 'Habitat' }), signal: controller.signal
       });
       clearTimeout(timeout); const data = await res.json();
       document.getElementById('spinner').classList.remove('active');
-      
       const box = document.getElementById('result-box'), hdr = document.getElementById('result-header'), bdy = document.getElementById('result-body');
-      
       if (data.found === true && data.pdf) {
-        hdr.className = 'result-header';
         hdr.style.cssText = 'background: #fff; color: #1a2744; border-bottom: 2px solid #f5a623; font-weight: 700;';
         hdr.innerHTML = `✓ Certificado Vigente`;
         const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
-        bdy.innerHTML = `<div class="name">${data.name || 'Certificado Auténtico'}</div>
-          <div style="margin-top:12px;border:1px solid #ddd;border-radius:4px;overflow:hidden;">
-          <iframe src="${pdfData}" style="width:100%;height:500px;border:none;" title="Certificado PDF"></iframe></div>`;
+        bdy.innerHTML = `<div class="name">${data.name || 'Certificado Auténtico'}</div><div style="margin-top:12px;border:1px solid #ddd;border-radius:4px;overflow:hidden;"><iframe src="${pdfData}" style="width:100%;height:500px;border:none;" title="Certificado PDF"></iframe></div>`;
       } else if (data.found === false) {
-        hdr.className = 'result-header';
         hdr.style.cssText = 'background: #fff; color: #c0392b; border-bottom: 2px solid #c0392b; font-weight: 700;';
         hdr.innerHTML = `✕ Atención: No se han encontrado resultados`;
-        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;text-align:center;">Comprueba que el folio esté correctamente escrito e inténtalo de nuevo.</p>';
-      } else {
-        hdr.className = 'result-header'; hdr.style.cssText = 'background: #fff; color: #c0392b; border-bottom: 2px solid #c0392b;';
-        hdr.innerHTML = '⚠️ Fallo temporal en el sistema';
+        bdy.innerHTML = '<p style="color:#555;font-size:0.9rem;text-align:center;">Comprueba el folio e inténtalo de nuevo.</p>';
       }
       box.classList.add('visible');
     } catch(err) {
       clearTimeout(timeout); document.getElementById('spinner').classList.remove('active');
-      const box = document.getElementById('result-box'), hdr = document.getElementById('result-header'), bdy = document.getElementById('result-body');
-      hdr.className = 'result-header'; hdr.style.cssText = 'background: #fff; color: #c0392b; border-bottom: 2px solid #c0392b;';
-      hdr.innerHTML = '⚠️ Error de red';
+      const box = document.getElementById('result-box');
+      document.getElementById('result-header').style.cssText = 'background: #fff; color: #c0392b; border-bottom: 2px solid #c0392b;';
+      document.getElementById('result-header').innerHTML = '⚠️ Error de red';
       box.classList.add('visible');
-    } finally { btn.disabled = false; }
+    } finally { document.getElementById('btn-validar').disabled = false; }
   }
-
   window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('folio').addEventListener('keydown', e=>{ if(e.key==='Enter') validar(); });
   });
