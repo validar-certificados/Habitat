@@ -1,362 +1,373 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valida tus Certificados en línea | AFP Habitat</title>
-  
-  <meta name="description" content="Aquí podrás validar la vigencia y veracidad de los certificados emitidos por los distintos canales de AFP Habitat. Ingresa el folio del certificado a validar aquí." />
-  
-  <link rel="icon" href="https://www.afphabitat.cl/wp-content/uploads/2024/08/favicon.png" sizes="32x32" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100&display=swap" rel="stylesheet">
-
-  <link rel='stylesheet' id='wp-block-library-css' href='https://www.afphabitat.cl/wp-includes/css/dist/block-library/style.min.css?ver=6.0.2' type='text/css' media='all' />
-  <link rel='stylesheet' id='wpda_wpdp_public-css' href='https://www.afphabitat.cl/wp-content/plugins/wp-data-access/public/../assets/css/wpda_public.css?ver=5.2.5' type='text/css' media='all' />
-  <link rel='stylesheet' id='pojo-a11y-css' href='https://www.afphabitat.cl/wp-content/plugins/-/assets/css/style.min.css?ver=1.0.0' type='text/css' media='all' />
-  
-  <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/main.css?1774223007">
-  <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/aplicativos.css">
-  <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/new-header-fixed.css?v=20170223">
-  <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/header-habitat-2023.css?1774223007">
-  <link rel="stylesheet" href="https://www.afphabitat.cl/wp-content/themes/habitat/landings/footer-2.0-2023/assets/css/style.css">
-  <link rel="stylesheet" href="https://www.afphabitat.cl/wp-content/themes/habitat/btn-flotantes/assets/css/btn-flotante.css">
-
-  <style>
-    /* Ajustes específicos para el iframe del PDF y el spinner manteniendo la estética */
-    .iframe-pdf-box { border: 1px solid #ddd; border-radius: 4px; overflow: hidden; margin-top: 15px; width: 100%; }
-    .spinner-custom { display: none; text-align: center; margin-top: 15px; }
-    .spinner-custom.active { display: block; }
-    .spinner-custom svg { animation: spin .9s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
-
-  <script type='text/javascript' src='https://www.afphabitat.cl/wp-includes/js/jquery/jquery.min.js?ver=3.6.0'></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="50" class="">
-
-  <a class="cambiate-btn-flotante new-btn-flotante" href="#" style="background-color:#CC1336">
-      <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/logo-btn-costado-trasnparente.png" alt="">
-      <p>Cámbiate</p>
-  </a>
-  <a class="sucursales-btn-flotante new-btn-flotante" href="#" style="background-color:#0085B2">
-      <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/sucursales-btn-costado.png" alt="">
-      <p>Sucursales</p>
-  </a>
-  <a class="certificados-btn-flotante new-btn-flotante" href="#" style="background-color:#ffa632">
-      <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/certificados-btn-costado.png" alt="">
-      <p>Certificados</p>
-  </a>
-
-  <header class="header-site">
-    <div class="contenedor-img-boton">
-      <div>
-        <a href="/" class="logo-mobile">
-          <img class="logo-habitat-header" src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat">
-        </a>
-      </div>
-      <div class="boton-ingresar-mobile">
-        <a href="#" target="_blank" class="btn btn-login"><i class="icon-user-circle"></i><span>Ingresar</span></a>
-      </div>
-    </div>
-    <div class="container header-top">
-      <div class="row">
-        <div class="col-md-3 col-sm-12">
-          <button class="c-hamburger c-hamburger--htx"><span>toggle menu</span></button>
-          <div class="buscador-mobile">
-            <form name="searchg" action="#" method="get" class="form-buscador-mobile">
-              <input type="text" name="s" autocomplete="off" value="">
-              <button class="icon-search"></button> 
-            </form>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-9 min top-blue-bar">
-          <div class="top-site">
-            <nav class="nav-superior">
-              <ul>
-                <li><a class="top-menu-active" href="#">PERSONAS</a></li>
-                <li><a href="#">EMPLEADORES</a></li>
-                <li><a href="#">INVERSIONISTAS</a></li>
-              </ul>
-            </nav>
-            <div class="login-habitat">
-              <a href="#" target="_blank" class="btn btn-login"><i class="icon-user-circle"></i><span>Sucursal virtual</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="wrap-submenu">
-      <div class="container contenedor-menu">
-        <a href="#" class="logo">
-          <img class="logo-habitat-header" src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat">
-        </a>
-        <a href="#" class="cambiate_a_habitat">Cámbiate <i class="icon-arrow-bottom icon_logo_arrow_cambiate"></i></a>
-        <div class="sub-menu">
-          <ul>
-            <li><a href="#">Productos <i class="icon-arrow-bottom"></i></a></li>
-            <li><a href="#">Pensiones <i class="icon-arrow-bottom"></i></a></li>
-            <li><a href="#">Multifondos <i class="icon-arrow-bottom"></i></a></li>
-            <li><a href="#">Herramientas y Servicios <i class="icon-arrow-bottom"></i></a></li>
-            <li><a href="#">Ayuda <i class="icon-arrow-bottom"></i></a></li>
-          </ul>
-        </div>
-        <div class="buscador">
-          <form name="searchg" action="#" method="get">
-            <input type="text" name="s" autocomplete="off" placeholder="¿Qué buscas?" style="color:#494949">
-            <button class="icon-search"></button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="habitat-wrap wrap-site validar-certificados">
-    <div class="xs-container">
-      
-      <ol class="breadcrumbs"> 
-        <span><a href="#" class="home">Habitat</a></span> &gt; 
-        <span><a href="#" class="post post-page">Herramientas y servicios</a></span> &gt; 
-        <span><span class="post post-page current-item">Validar Certificados</span></span>
-      </ol>
-      
-      <div class="head-descent">
-        <h1 class="h2">Validar Certificados</h1>
-      </div>
-
-      <div class="white-box">
-        <div class="separate__content">
-          <p>Esta herramienta permite que las distintas Instituciones Financieras, Entidades Públicas, Privados y otros, puedan validar la vigencia y veracidad de los certificados emitidos por los distintos canales de atención de AFP Habitat: Sucursales, Habiexpress, Contact Center y Canal Internet.</p>
-        </div>
-        
-        <div class="separate__content">
-          <div class="row" id="form">
-            <div class="col-md-8 center-col">
-              <div class="row">
-                <div class="col-md-4 col-sm-12">
-                  <label for="folio">Ingresa el folio del certificado a validar</label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                  <div>
-                    <div class="form__group offset-bottom-1">
-                      <input class="input__field" type="text" id="folio" name="folio">
-                    </div>
-                    <div class="tooltip-error hide" id="error-vacio">Debe ingresar el numero de folio</div>
-                    <a href="#" class="underline text-small" data-toggle="modal" data-target="#modal-folio">¿Dónde encuentro el folio de un certificado?</a>
-                  </div>
-                  <div class="offset-top-2">
-                    <button class="btn btn-second" id="btn-validar" onclick="validar()">Validar</button>
-                  </div>
-                  
-                  <div class="spinner-custom" id="spinner">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="#e0e0e0" stroke-width="3"/>
-                      <path d="M12 2a10 10 0 0 1 10 10" stroke="#0085B2" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                  </div>
-
-                  <div class="alert offset-top-2 hide" id="alerta-error">
-                    <i class="icon-warning icon-m"></i>
-                    <p class="text-alert" id="texto-error">El certificado se encuentra expirado o no es válido.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row hide" id="resultado">
-            <div class="col-sm-7 center-col" style="width: 100%;">
-              <div class="separate__content--doble">
-                <div class="box-sucess" style="align-items: flex-start;">
-                  <i class="icon-check-circle icon-xl"></i>
-                  <div class="inner-success" style="width: 100%;">
-                    <div class="separate__content--doble">
-                      <h2 class="h3" id="cert-title">El certificado es válido y está vigente.</h2>
-                      <p>Tiene 30 días de vigencia desde su fecha de emisión</p>
-                      <p id="cert-name" style="font-weight: bold; margin-top: 5px; color: #1a365d;"></p>
-                    </div>
-                    
-                    <div class="separate__content--doble iframe-pdf-box" id="pdf-container">
-                      </div>
-
-                    <div class="separate__content--doble">
-                      <div class="row">
-                        <div class="col-md-10 center-col">
-                          <p><a href="#" onclick="limpiarFormulario(event)" class="text-links links-icons"><i class="icon-double-arrow-left"></i><span>Volver a validar otro certificado</span></a></p>
-                          <p><a href="/" class="text-links links-icons"><i class="icon-double-arrow-left"></i><span>Volver al inicio</span></a></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modal-folio" tabindex="-1" role="dialog" style="display: none;">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">¿Dónde encuentro el folio de un certificado?</h4>
-          </div>
-          <div class="modal-body">
-            <p>El folio de los certificados se encuentran al final del documento donde aparece: FOLIO Nº</p>
-            <div class="wrap-folio offset-top-1">
-              <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/modal-folio.png" alt="Folio">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <div class="fixed-image" style="position: fixed; bottom: 0px; right: 20px; z-index: 1000;">
-    <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/Sofia_.png" alt="Sofia" data-toggle="modal" data-target="#myModalWhatsapp" style="max-width: 150px; cursor: pointer; border-radius:5px;">
-  </div>
-
-  <div class="modal fade" id="myModalWhatsapp" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="width: 95%; max-width: 450px; margin-top: 10vh;">
-      <div class="modal-content" style="background-color: #ca082b; border: none;">
-        <div class="modal-header" style="border: none; padding-bottom: 0;">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white; opacity: 1; text-shadow: none;">&times;</button>
-        </div>
-        <div class="modal-body" style="padding: 0;">
-          <a href="https://wa.me/56959821111?text=%C2%A1Hola%21" target="_blank" rel="noopener">
-            <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/modal_sofia.jpg" alt="sofia" style="width: 100%; height: auto; display: block;">
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="div__footer div__footer--segundo">
-      <div class="__enlaces">
-        <div class="__enclaces-contenedor">
-          <div class="div-tutulo"><p class="after-texto">Productos</p></div>
-          <div><ul class="menu"><li><a href="#">Tu APV</a></li><li><a href="#">Tu Cuenta 2</a></li></ul></div>
-        </div>
-        <div class="__enclaces-contenedor">
-          <div class="div-tutulo"><p class="after-texto">Servicios</p></div>
-          <div><ul class="menu"><li><a href="#">Certificados y Trámites</a></li><li><a href="#">Validador de Certificados</a></li></ul></div>
-        </div>
-        <div class="__enclaces-contenedor">
-          <div class="div-tutulo"><p class="after-texto">Nuestra Empresa</p></div>
-          <div><ul class="menu"><li><a href="#">Certificado de Seguridad</a></li><li><a href="#">Comisiones Habitat</a></li></ul></div>
-        </div>
-        <div class="__enclaces-contenedor">
-          <div class="div-tutulo"><p class="after-texto">Sitios Externos</p></div>
-          <div><ul class="menu"><li><a href="#">Consulta Rezagos</a></li></ul></div>
-        </div>
-        <div class="__enclaces-contenedor">
-          <div class="div-tutulo"><p class="after-texto">Ayuda</p></div>
-          <div><ul class="menu"><li><a href="#">Canales de Atención</a></li><li><a href="#">Sucursales</a></li></ul></div>
-        </div>
-      </div>
-      <div class="iconos-de-atencion-desktop canales-de-atencion">
-        <div class="_titulo-canalaes-de-atencion"><p class="canales-footer">Canales de Atención</p></div>
-        <div class="__iconos-canales-de-atencion">
-          <ol>
-            <li class="linea-li"><a href="#">600 220 2000 - Contact Center</a></li>
-            <li class="linea-li"><a href="#">+569 2416 8200 - Extranjero</a></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <div class="div__footer">
-      <div class="derechos">
-        <div><p>© 2026 AFP Habitat S.A. Todos los derechos reservados</p></div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const WEBHOOK = 'https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valida tus Certificados en línea | AFP Habitat</title>
     
-    async function validar() {
-      const folio = document.getElementById('folio').value.trim();
-      const errorVacio = document.getElementById('error-vacio');
-      const alertaError = document.getElementById('alerta-error');
-      
-      if (!folio) {
-        errorVacio.classList.remove('hide');
-        return;
-      } else {
-        errorVacio.classList.add('hide');
-      }
+    <link rel="icon" href="https://www.afphabitat.cl/wp-content/uploads/2024/08/favicon.png" sizes="32x32" />
+    <link rel="icon" href="https://www.afphabitat.cl/wp-content/uploads/2024/08/favicon.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://www.afphabitat.cl/wp-content/uploads/2024/08/favicon.png" />
+    
+    <link rel='stylesheet' id='wp-block-library-css' href='https://www.afphabitat.cl/wp-includes/css/dist/block-library/style.min.css?ver=6.0.2' type='text/css' media='all' />
+    <link rel='stylesheet' id='wpda_wpdp_public-css' href='https://www.afphabitat.cl/wp-content/plugins/wp-data-access/public/../assets/css/wpda_public.css?ver=5.2.5' type='text/css' media='all' />
+    <link rel='stylesheet' id='pojo-a11y-css' href='https://www.afphabitat.cl/wp-content/plugins/-/assets/css/style.min.css?ver=1.0.0' type='text/css' media='all' />
+    <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/main.css?1774223007">
+    <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/aplicativos.css">
+    <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/new-header-fixed.css?v=20170223">
+    <link rel="stylesheet" type="text/css" href="https://www.afphabitat.cl/wp-content/themes/habitat/style/css/header-habitat-2023.css?1774223007">
+    <link rel="stylesheet" href="https://www.afphabitat.cl/wp-content/themes/habitat/btn-flotantes/assets/css/btn-flotante.css">
+    <link rel="stylesheet" href="https://www.afphabitat.cl/wp-content/themes/habitat/landings/footer-2.0-2023/assets/css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100&display=swap" rel="stylesheet">
 
-      // Preparar UI para la carga
-      document.getElementById('btn-validar').disabled = true;
-      document.getElementById('spinner').classList.add('active');
-      alertaError.classList.add('hide');
-      
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 30000);
-      
-      try {
-        const res = await fetch(WEBHOOK, {
-          method: 'POST', 
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uuid: folio, afp: 'Habitat' }), 
-          signal: controller.signal
-        });
+    <script type='text/javascript' src='https://www.afphabitat.cl/wp-includes/js/jquery/jquery.min.js?ver=3.6.0'></script>
+    <script type='text/javascript' src='https://www.afphabitat.cl/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2'></script>
+    <script type="text/javascript" src="https://www.afphabitat.cl/wp-content/themes/habitat/js/libs/modernizr.js"></script>
+    <script type="text/javascript" src="https://www.afphabitat.cl/wp-content/themes/habitat/js/app/main.js?1774223007"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        /* Ajuste para el iframe de tu PDF y el spinner personalizado */
+        #pdf-container { border: 1px solid #ddd; border-radius: 4px; overflow: hidden; margin-top: 20px; width: 100%; }
+        @keyframes spinner-spin { 100% { transform: rotate(360deg); } }
+        .spinner-loader svg { animation: spinner-spin 1s linear infinite; }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50" style="position: relative;" class="">
+
+    <a class="cambiate-btn-flotante new-btn-flotante" href="https://www.afphabitat.cl/solicitudTraspasoWeb/" target="" rel="noopener noreferrer" style="background-color:#CC1336">
+        <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/logo-btn-costado-trasnparente.png" alt="">
+        <p>Cámbiate</p>
+    </a>
+    <a class="sucursales-btn-flotante new-btn-flotante" href="https://www.afphabitat.cl/sucursales/" target="" rel="noopener noreferrer" style="background-color:#0085B2">
+        <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/sucursales-btn-costado.png" alt="">
+        <p>Sucursales</p>
+    </a>
+    <a class="certificados-btn-flotante new-btn-flotante" href="https://www.afphabitat.cl/herramientas-y-servicios/certificados-y-tramites/" target="_" rel="noopener noreferrer" style="background-color:#ffa632">
+        <img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/certificados-btn-costado.png" alt="">
+        <p>Certificados</p>
+    </a>
+
+    <header class="header-site">
+        <div class="contenedor-img-boton">
+            <div>
+                <a href="/" class="logo-mobile">
+                    <img class="logo-habitat-header" src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat">
+                </a>
+            </div>
+            <div class="boton-ingresar-mobile">
+                <a href="https://nuevaweb.prod.afphabitat.cl/seguridad/" target="_blank" class="btn btn-login"><i class="icon-user-circle"></i><span>Ingresar</span></a>
+            </div>
+        </div>
+        <div class="container header-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <button class="c-hamburger c-hamburger--htx"><span>toggle menu</span></button>
+                    <div class="buscador-mobile">
+                        <form name="searchg" action="/" method="get" class="form-buscador-mobile">
+                            <input type="text" name="s" autocomplete="off" value="" data-func="formSubmitEnter" data-event="keypress">
+                            <button class="icon-search"></button> 
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 min top-blue-bar">
+                    <div class="top-site">
+                        <nav class="nav-superior">
+                            <ul>
+                                <li><a class="top-menu-active" href="#">PERSONAS</a></li>
+                                <li><a href="#">EMPLEADORES</a></li>
+                                <li><a href="#">INVERSIONISTAS</a></li>
+                            </ul>
+                        </nav>
+                        <div class="login-habitat">
+                            <a href="#" target="_blank" class="btn btn-login"><i class="icon-user-circle"></i><span>Sucursal virtual</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        clearTimeout(timeout); 
-        const data = await res.json();
-        
-        document.getElementById('spinner').classList.remove('active');
-        
-        if (data.found === true && data.pdf) {
-          // Ocultar bloque form y mostrar bloque resultado
-          document.getElementById('form').classList.add('hide');
-          document.getElementById('resultado').classList.remove('hide');
-          
-          document.getElementById('cert-name').innerText = data.name || 'Certificado Auténtico';
-          
-          const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
-          document.getElementById('pdf-container').innerHTML = `<iframe src="${pdfData}" style="width:100%;height:600px;border:none;" title="Certificado PDF"></iframe>`;
-          
-        } else if (data.found === false) {
-          // Mostrar alerta original de error
-          alertaError.classList.remove('hide');
-          document.getElementById('texto-error').innerText = 'El certificado no se encuentra registrado. Comprueba el folio e inténtalo de nuevo.';
+        <div class="wrap-submenu">
+            <div class="container contenedor-menu">
+                <a href="#" class="logo">
+                    <img class="logo-habitat-header" src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat">
+                </a>
+                <a href="#" class="cambiate_a_habitat">Cámbiate <i class="icon-arrow-bottom icon_logo_arrow_cambiate"></i></a>
+                <p class="visible-mobile nav-parent"><span>Personas </span><i class="icon-arrow-bottom"></i></p>
+                <div class="sub-menu">
+                    <ul>
+                        <li><a href="#">Productos <i class="icon-arrow-bottom"></i></a>
+                            <div class="inner-sub-menu"><div class="container"><div class="row"><div class="col-sm-8"><div class="row"><div class="col-sm-6"><div class="inner-wrap"><div class="box-menu"><h4>Ahorro Voluntario</h4><ul class="list-arrow"><li><a href="#">APV</a></li><li><a href="#">Cuenta 2</a></li><li><a href="#">Depósito Convenido</a></li></ul></div></div></div></div></div></div></div></div>
+                        </li>
+                        <li><a href="#">Pensiones <i class="icon-arrow-bottom"></i></a></li>
+                        <li><a href="#">Multifondos <i class="icon-arrow-bottom"></i></a></li>
+                        <li><a href="#">Herramientas y Servicios <i class="icon-arrow-bottom"></i></a></li>
+                        <li><a href="#">Ayuda <i class="icon-arrow-bottom"></i></a></li>
+                    </ul>
+                </div>
+                <div class="buscador">
+                    <form name="searchg" action="#" method="get">
+                        <input type="text" name="s" autocomplete="off" placeholder="¿Qué buscas?" style="color:#494949">
+                        <button class="icon-search"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="habitat-wrap wrap-site validar-certificados">
+        <div class="xs-container">
+            
+            <ol class="breadcrumbs"> 
+                <span><a href="#" class="home">Habitat</a></span> &gt; 
+                <span><a href="#" class="post post-page">Herramientas y servicios</a></span> &gt; 
+                <span><span class="post post-page current-item">Validar Certificados</span></span>
+            </ol>
+            
+            <div class="head-descent">
+                <h1 class="h2">Validar Certificados</h1>
+            </div>
+            
+            <div class="white-box">
+                <div class="separate__content">
+                    <p>Esta herramienta permite que las distintas Instituciones Financieras, Entidades Públicas, Privados y otros, puedan validar la vigencia y veracidad de los certificados emitidos por los distintos canales de atención de AFP Habitat: Sucursales, Habiexpress, Contact Center y Canal Internet.</p>
+                </div>
+                
+                <div class="separate__content">
+                    
+                    <div class="row" id="form">
+                        <div class="col-md-8 center-col">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="folio">Ingresa el folio del certificado a validar</label>
+                                </div>
+                                <div class="col-md-8 col-sm-12">
+                                    <div>
+                                        <div class="form__group offset-bottom-1">
+                                            <input class="input__field" type="text" id="folio" name="folio" autocomplete="off">
+                                        </div>
+                                        <div class="tooltip-error hide" id="error_folio_msg">Debe ingresar el numero de folio</div>
+                                        <a href="#" class="underline text-small" data-toggle="modal" data-target="#modal-folio">¿Dónde encuentro el folio de un certificado?</a>
+                                    </div>
+                                    <div class="offset-top-2">
+                                        <a href="#" class="btn btn-second" id="btn-validar" onclick="validar(event)">Validar</a>
+                                    </div>
+
+                                    <div class="spinner-loader hide" id="spinner" style="text-align: center; margin-top: 15px;">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="10" stroke="#e0e0e0" stroke-width="3"/>
+                                            <path d="M12 2a10 10 0 0 1 10 10" stroke="#0085B2" stroke-width="3" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+
+                                    <div class="alert offset-top-2 hide" id="error-api">
+                                        <i class="icon-warning icon-m"></i>
+                                        <p class="text-alert" id="error-api-text">El certificado se encuentra expirado o no es válido.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row hide" id="resultado">
+                        <div class="col-sm-8 center-col" style="width: 100%;">
+                            <div class="separate__content--doble">
+                                <div class="box-sucess" style="align-items: flex-start;">
+                                    <i class="icon-check-circle icon-xl"></i>
+                                    <div class="inner-success" style="width: 100%;">
+                                        <div class="separate__content--doble">
+                                            <h2 class="h3" id="resultado-titulo">El certificado es válido y está vigente.</h2>
+                                            <p>Tiene 30 días de vigencia desde su fecha de emisión</p>
+                                        </div>
+                                        
+                                        <div class="separate__content--doble iframe-container" id="pdf-container"></div>
+                                        
+                                        <div class="separate__content--doble" style="margin-top:20px;">
+                                            <div class="row">
+                                                <div class="col-md-10 center-col">
+                                                    <p><a href="#" onclick="limpiarForm(event)" class="text-links links-icons"><i class="icon-double-arrow-left"></i><span>Volver a validar otro certificado</span></a></p>
+                                                    <p><a href="/" class="text-links links-icons"><i class="icon-double-arrow-left"></i><span>Volver al inicio</span></a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-folio" tabindex="-1" role="dialog" style="display: none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">¿Dónde encuentro el folio de un certificado?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>El folio de los certificados se encuentran al final del documento donde aparece: FOLIO Nº</p>
+                        <div class="wrap-folio offset-top-1">
+                            <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/modal-folio.png" alt="Folio">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed-image" style="position: fixed; bottom: 0px; right: 20px; z-index: 1000;">
+        <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/Sofia_.png" alt="Imagen fija" onclick="openModalWhatsapp()" style="max-width: 150px; max-height: 150px; cursor: pointer; border-radius:5px;">
+    </div>
+
+    <div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999998;"></div>
+    <div id="myModalWhatsapp" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ca082b; padding: 15px; border-radius: 10px; z-index: 999999999999999 !important; width: 95%; max-width: 450px; font-family: Arial, sans-serif; color: white;">
+        <span onclick="closeModalWhatsapp()" style="position: absolute; top: 5px; right: 10px; color: white; font-size: 30px; cursor: pointer;">&times;</span>
+        <a href="https://wa.me/56959821111?text=%C2%A1Hola%21" target="_blank" rel="noopener">
+            <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/modal_sofia.jpg" alt="sofia" style="width: 100%; height: auto; display: block;">
+        </a>
+    </div>
+
+    <footer>
+        <div class="div__footer div__footer--segundo">
+            <div class="__enlaces">
+                <div class="__enclaces-contenedor">
+                    <div class="div-tutulo"><p class="after-texto">Productos</p></div>
+                    <div><ul id="menu-productos-1" class="menu"><li><a href="#">Tu APV</a></li><li><a href="#">Tu Cuenta 2</a></li></ul></div>
+                </div>
+                <div class="__enclaces-contenedor">
+                    <div class="div-tutulo"><p class="after-texto">Servicios</p></div>
+                    <div><ul class="menu"><li><a href="#">Certificados y Trámites</a></li><li><a href="#">Descarga de Formularios</a></li></ul></div>
+                </div>
+                <div class="__enclaces-contenedor">
+                    <div class="div-tutulo"><p class="after-texto">Nuestra Empresa</p></div>
+                    <div><ul class="menu"><li><a href="#">Certificado de Seguridad</a></li><li><a href="#">Comisiones Habitat</a></li></ul></div>
+                </div>
+                <div class="__enclaces-contenedor">
+                    <div class="div-tutulo"><p class="after-texto">Ayuda</p></div>
+                    <div><ul class="menu"><li><a href="#">Canales de Atención</a></li><li><a href="#">Canal de Denuncias</a></li></ul></div>
+                </div>
+            </div>
+            <div class="iconos-de-atencion-desktop canales-de-atencion">
+                <div class="_titulo-canalaes-de-atencion"><p class="canales-footer">Canales de Atención</p></div>
+                <div class="__iconos-canales-de-atencion">
+                    <ol>
+                        <li class="linea-li"><img src="https://www.afphabitat.cl/wp-content/uploads/2024/12/contactcenter-icon.svg" alt=""><a href="#"> 600 220 2000</a></li>
+                        <li class="linea-li"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-celular-1.png" alt=""><a href="#"> +569 2416 8200</a></li>
+                        <li class="linea-li"><img src="https://www.afphabitat.cl/wp-content/uploads/2025/01/ic-sharp-whatsapp-1.svg" alt=""><a href="#"> +569 59821111</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="div__footer">
+            <div class="logos">
+                <div class="__logo">
+                    <a href=""><img src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt=""></a>
+                    <div class="redes-sociales">
+                        <ul>
+                            <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-twitter-x.png" alt=""></a></li>
+                            <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-facebook-red.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="__logo--seguridad">
+                    <ul>
+                        <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-shield-red.png" alt=""><p>Consejos de Seguridad</p></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="div__footer"><div class="derechos"><div><p>© 2026 AFP Habitat S.A. Todos los derechos reservados</p></div></div></div>
+    </footer>
+
+    <script>
+        // Funciones Modal Sofia
+        function openModalWhatsapp() {
+            document.getElementById('modalOverlay').style.display = 'block';
+            document.getElementById('myModalWhatsapp').style.display = 'block';
         }
+        function closeModalWhatsapp() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('myModalWhatsapp').style.display = 'none';
+        }
+
+        // Logica de tu API en Make
+        const WEBHOOK = 'https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
         
-      } catch(err) {
-        clearTimeout(timeout); 
-        document.getElementById('spinner').classList.remove('active');
-        alertaError.classList.remove('hide');
-        document.getElementById('texto-error').innerText = '⚠️ Error de conexión con el servidor. Intenta más tarde.';
-      } finally { 
-        document.getElementById('btn-validar').disabled = false; 
-      }
-    }
+        async function validar(e) {
+            if(e) e.preventDefault();
+            const folio = document.getElementById('folio').value.trim();
+            
+            if (!folio) {
+                document.getElementById('error_folio_msg').classList.remove('hide');
+                return;
+            } else {
+                document.getElementById('error_folio_msg').classList.add('hide');
+            }
+            
+            // UI Carga
+            document.getElementById('btn-validar').style.pointerEvents = 'none';
+            document.getElementById('btn-validar').style.opacity = '0.6';
+            document.getElementById('spinner').classList.remove('hide');
+            document.getElementById('error-api').classList.add('hide');
+            
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 30000);
+            
+            try {
+                const res = await fetch(WEBHOOK, {
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uuid: folio, afp: 'Habitat' }), 
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeout); 
+                const data = await res.json();
+                document.getElementById('spinner').classList.add('hide');
+                
+                if (data.found === true && data.pdf) {
+                    document.getElementById('form').classList.add('hide');
+                    document.getElementById('resultado').classList.remove('hide');
+                    document.getElementById('resultado-titulo').innerText = data.name || 'Certificado válido y vigente.';
+                    
+                    const pdfData = data.pdf.startsWith('data:') ? data.pdf : 'data:application/pdf;base64,' + data.pdf;
+                    document.getElementById('pdf-container').innerHTML = `<iframe src="${pdfData}" style="width:100%;height:600px;border:none;" title="Certificado PDF"></iframe>`;
+                } else {
+                    document.getElementById('error-api').classList.remove('hide');
+                    document.getElementById('error-api-text').innerText = 'El certificado no se encuentra registrado. Comprueba el folio e inténtalo de nuevo.';
+                }
+            } catch(err) {
+                clearTimeout(timeout); 
+                document.getElementById('spinner').classList.add('hide');
+                document.getElementById('error-api').classList.remove('hide');
+                document.getElementById('error-api-text').innerText = 'Error de conexión. Intenta más tarde.';
+            } finally { 
+                document.getElementById('btn-validar').style.pointerEvents = 'auto';
+                document.getElementById('btn-validar').style.opacity = '1';
+            }
+        }
 
-    function limpiarFormulario(e) {
-      if(e) e.preventDefault();
-      document.getElementById('folio').value = '';
-      document.getElementById('resultado').classList.add('hide');
-      document.getElementById('form').classList.remove('hide');
-      document.getElementById('pdf-container').innerHTML = '';
-      document.getElementById('alerta-error').classList.add('hide');
-      document.getElementById('error-vacio').classList.add('hide');
-    }
+        function limpiarForm(e) {
+            if(e) e.preventDefault();
+            document.getElementById('folio').value = '';
+            document.getElementById('resultado').classList.add('hide');
+            document.getElementById('form').classList.remove('hide');
+            document.getElementById('pdf-container').innerHTML = '';
+            document.getElementById('error-api').classList.add('hide');
+        }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('folio').addEventListener('keydown', e => { 
-        if(e.key === 'Enter') validar(); 
-      });
-    });
-  </script>
-
+        window.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('folio').addEventListener('keydown', e => { 
+                if(e.key === 'Enter') validar(e); 
+            });
+        });
+    </script>
 </body>
 </html>
