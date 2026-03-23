@@ -148,13 +148,13 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;heigh
 .separate__content p{font-family:'robotolight',sans-serif;font-size:14px;color:#4C4C4A;line-height:1.6}
 .form-row{display:flex;align-items:flex-start;gap:20px;margin-top:15px}
 .form-row .label-col{flex:0 0 200px}
-.form-row label{font-family:'robotoregular',sans-serif;font-size:16px;color:#4C4C4A;line-height:1.4}
+.form-row label{font-family:'robotolight',sans-serif;font-size:16px;color:#4C4C4A;line-height:1.4;font-weight:normal}
 .form-row .input-col{flex:1}
-.form__group input{font-family:'robotoregular',sans-serif;font-size:16px;color:#000;background:#fff;padding:10px;border:1px solid #ccc;border-radius:5px;height:45px;width:100%;outline:none}
+.form__group input{font-family:'robotolight',sans-serif;font-size:16px;color:#000;background:#fff;padding:10px;border:1px solid #ccc;border-radius:5px;height:45px;width:100%;outline:none}
 .form__group input:focus{border-color:#0085B2}
 .tooltip-error{font-family:'robotolight',sans-serif;font-size:12px;color:#B52A29;background:#FFE7E7;padding:8px 10px;margin-top:2px;border:1px solid #B52A29;border-radius:5px;display:none}
 .folio-link{font-family:'robotolight',sans-serif;font-size:14px;color:#0085B2;text-decoration:underline;cursor:pointer;display:inline-block;margin-top:5px}
-.btn-validar{display:inline-block;font-family:'robotoregular',sans-serif;font-size:16px;color:#fff;background:#6BA3B7;padding:10px 30px;border:none;border-radius:5px;margin-top:20px;text-align:center}
+.btn-validar{display:inline-block;font-family:'robotoregular',sans-serif;font-size:16px;color:#fff;background:#6BA3B7;padding:10px 30px;border:none;border-radius:5px;text-align:center}
 .btn-validar:hover{background:#5a8fa1}
 .spinner{display:none;margin-top:15px}
 .spinner::after{content:'';display:inline-block;width:22px;height:22px;border:3px solid #6BA3B7;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
@@ -356,7 +356,10 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;heigh
             <a class="folio-link" id="openModal">¿Dónde encuentro el folio de un certificado?</a>
           </div>
         </div>
-        <div><button class="btn-validar" id="btnValidar">Validar</button></div>
+        <div class="form-row" style="margin-top:20px">
+          <div class="label-col"></div>
+          <div class="input-col"><button class="btn-validar" id="btnValidar">Validar</button></div>
+        </div>
         <div class="spinner" id="spinner"></div>
         <div class="result-box result-invalid" id="rInvalid">El certificado se encuentra expirado o no es válido.</div>
         <div class="result-box result-valid" id="rValid">
@@ -440,7 +443,7 @@ document.getElementById('btnValidar').addEventListener('click',function(){
   var f=document.getElementById('folio').value.trim();
   if(!f){document.getElementById('errorMsg').style.display='block';document.getElementById('folio').focus();return}
   document.getElementById('spinner').style.display='block';this.disabled=true;this.style.opacity='.6';
-  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({folio:f,entity:'Habitat'})})
+  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uuid:f})})
   .then(function(r){return r.json()})
   .then(function(d){
     document.getElementById('spinner').style.display='none';
