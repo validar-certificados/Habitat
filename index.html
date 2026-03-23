@@ -3,399 +3,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFP Modelo - Validar Certificados</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Valida tus Certificados en línea | AFP Habitat</title>
+<link rel="icon" href="https://www.afphabitat.cl/wp-content/uploads/2022/10/cropped-favicon-32x32.png" sizes="32x32">
 <style>
+@font-face{font-family:'robotoregular';src:url('https://www.afphabitat.cl/wp-content/themes/habitat/style/fonts/roboto-regular-webfont.woff2') format('woff2')}
+@font-face{font-family:'robotolight';src:url('https://www.afphabitat.cl/wp-content/themes/habitat/style/fonts/roboto-light-webfont.woff2') format('woff2')}
+@font-face{font-family:'robotomedium';src:url('https://www.afphabitat.cl/wp-content/themes/habitat/style/fonts/roboto-medium-webfont.woff2') format('woff2')}
+@font-face{font-family:'robotobold';src:url('https://www.afphabitat.cl/wp-content/themes/habitat/style/fonts/roboto-bold-webfont.woff2') format('woff2')}
+@font-face{font-family:'roboto_slabregular';src:url('https://www.afphabitat.cl/wp-content/themes/habitat/style/fonts/robotoslab-regular-webfont.woff2') format('woff2')}
+
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --green:#81BD00;--green-dk:#6fa300;--green-lt:#E6F2CC;
-  --cyan:#8FEBFF;--dark:#1A171C;
-  --body-color:#4D4D4D;--text-dk:#1A1A1A;--gray:#808080;--light:rgba(0,0,0,.45);
-  --border:#d9d9d9;--footer-bg:#F2F2F2;
-  --poppins:'Poppins',Helvetica,Arial,sans-serif;
-  --opensans:'Open Sans',Helvetica,Arial,sans-serif;
+body{font-family:'robotoregular',sans-serif;font-size:16px;color:#4C4C4A;background:#F9F8F6;line-height:normal;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;height:auto;display:block}button{cursor:pointer;font-family:inherit}
+.container{max-width:1200px;margin:0 auto;padding:0 10px}
+
+/* ========== FLOATING BUTTONS ========== */
+.new-btn-flotante{position:fixed;right:0;z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;color:#fff;border-radius:15px 0 0 15px;text-decoration:none}
+.new-btn-flotante:hover{opacity:.92}
+.new-btn-flotante p{font-family:'robotoregular',sans-serif;font-size:12px;font-weight:500;color:#fff;margin:0;text-align:center}
+.fl-cambiate{background:#CC1336;top:255px;width:77px;padding:12px 5px 5px}
+.fl-cambiate img{width:34px;height:29px;margin:0 auto 6px}
+.fl-certificados{background:#FFA632;top:390px;width:55px;height:55px;padding:12px 15px;justify-content:center}
+.fl-certificados img{width:25px;height:25px;margin:0 auto}
+.fl-certificados p,.fl-sucursales p{color:transparent;font-size:0;overflow:hidden;height:0}
+.fl-sucursales{background:#0085B2;top:455px;width:55px;height:55px;padding:12px 16px;justify-content:center}
+.fl-sucursales img{width:18px;height:25px;margin:0 auto}
+.fl-accesibilidad{position:fixed;right:0;top:190px;z-index:3000;background:#001F56;color:#fff;width:55px;height:55px;border-radius:10px 0 0 10px;display:flex;align-items:center;justify-content:center;font-size:32px;text-decoration:none}
+
+/* ========== HEADER ========== */
+.header-site{background:#263C75;position:relative}
+
+/* Mobile bar */
+.contenedor-img-boton{display:none;background:#fff;height:50px;align-items:center;justify-content:space-between;padding:0 10px}
+.contenedor-img-boton .logo-mobile img{width:135px}
+.btn-ingresar{display:inline-flex;align-items:center;gap:6px;background:#FCA800;color:#fff;padding:9px 18px;border-radius:5px;font-family:'robotoregular',sans-serif;font-size:16px}
+.btn-ingresar svg{width:16px;height:16px;fill:#fff}
+.mobile-blue-bar{display:none;background:#263C75;height:60px;align-items:center;justify-content:space-between;padding:0 15px}
+.c-hamburger{background:none;border:none;width:30px;height:30px;position:relative;display:flex;align-items:center;justify-content:center}
+.c-hamburger span{display:block;width:30px;height:4px;background:#fff;border-radius:1px;position:relative}
+.c-hamburger span::before,.c-hamburger span::after{content:'';position:absolute;left:0;width:30px;height:4px;background:#fff;border-radius:1px}
+.c-hamburger span::before{top:-9px}
+.c-hamburger span::after{top:9px}
+.mobile-search-icon{background:none;border:none;color:#001F56;font-size:27px;width:57px;height:50px;display:flex;align-items:center;justify-content:center}
+
+/* Desktop top blue bar */
+.header-top{height:87px;display:flex;align-items:center;justify-content:space-between}
+.nav-superior ul{display:flex;height:87px;align-items:stretch}
+.nav-superior li{display:flex;align-items:stretch}
+.nav-superior a{display:flex;align-items:center;padding:2px 20px;font-family:'robotoregular',sans-serif;font-size:16px;color:#fff}
+.nav-superior a.active{background:#fff;color:#CF2E2E}
+.login-habitat{display:flex;align-items:center}
+.btn-sucursal{display:inline-flex;align-items:center;gap:8px;background:#FCA800;color:#fff;padding:9px 18px;border:1px solid #FCA800;border-radius:5px;font-family:'robotoregular',sans-serif;font-size:16px;height:45px}
+.btn-sucursal:hover{background:#e59800}
+.btn-sucursal svg{width:16px;height:16px;fill:#fff}
+
+/* Desktop submenu white bar */
+.wrap-submenu{background:#fff;height:77px;display:flex;align-items:center;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.contenedor-menu{display:flex;align-items:center;width:100%}
+.logo-link{display:block;width:150px;flex-shrink:0}
+.logo-link img{width:135px}
+.btn-cambiate{display:flex;align-items:center;justify-content:center;background:#CC1336;color:#fff;font-family:'robotoregular',sans-serif;font-size:16px;width:99px;height:77px;text-align:center;flex-shrink:0;clip-path:polygon(0% 0%,100% 0,100% 78%,50% 100%,0 78%)}
+.btn-cambiate:hover{background:#b8112f}
+.sub-menu{display:flex;align-items:center;flex:1}
+.sub-menu ul{display:flex;align-items:center}
+.sub-menu li{padding:18px 12px}
+.sub-menu li a{font-family:'robotoregular',sans-serif;font-size:16px;color:#4C4C4A;display:flex;align-items:center;gap:4px}
+.sub-menu li a:hover{color:#0085B2}
+.sub-menu .arrow{font-size:10px;color:#999}
+.buscador{position:relative;width:200px;height:40px;flex-shrink:0;margin-left:auto}
+.buscador input{width:100%;height:40px;background:rgba(174,174,174,.82);border:none;outline:none;padding:10px 45px 10px 10px;font-family:'robotoregular',sans-serif;font-size:14px;color:#494949}
+.buscador input::placeholder{color:rgba(255,255,255,.85)}
+.buscador .icon-search{position:absolute;right:0;top:0;width:40px;height:40px;background:#FCA800;border:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+
+/* Mobile nav */
+.mobile-nav{display:none;background:#fff;position:absolute;top:100%;left:0;right:0;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:14px 20px;font-family:'robotoregular',sans-serif;font-size:16px;color:#4C4C4A;border-bottom:1px solid #f0f0f0}
+
+/* ========== MAIN ========== */
+.breadcrumbs{font-family:'robotolight',sans-serif;font-size:16px;color:#4C4C4A;padding:20px 0}
+.breadcrumbs a{color:#0085B2}
+.breadcrumbs a:hover{text-decoration:underline}
+
+/* xs-container = 740px centered */
+.xs-container{max-width:740px;margin:0 auto;padding:0 0 30px}
+.head-descent{padding:0 0 20px}
+.head-descent h1{font-family:'roboto_slabregular',serif;font-size:32px;font-weight:100;color:#4C4C4A;line-height:1.2;margin:0 0 5px}
+
+/* White card */
+.white-box{background:#fff;padding:30px 40px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.separate__content+.separate__content{margin-top:11px}
+.separate__content p{font-family:'robotolight',sans-serif;font-size:14px;color:#4C4C4A;line-height:1.6}
+
+/* Form: center-col (61%) with inner 33%/66% columns — matching original Bootstrap layout */
+.center-col{width:61.3%;margin:0 auto}
+.form-row{display:flex;align-items:flex-start;margin:0 -10px}
+.form-row .label-col{width:33.3333%;padding:0 10px;flex-shrink:0}
+.form-row .input-col{width:66.6667%;padding:0 10px;flex-shrink:0}
+.form-row label{font-family:'robotolight',sans-serif;font-size:16px;color:#4C4C4A;line-height:1.4}
+.form__group input{font-family:'robotolight',sans-serif;font-size:16px;color:#4C4C4A;background:#fff;padding:10px;border:1px solid #ccc;border-radius:5px;height:45px;width:100%;outline:none}
+.form__group input:focus{border-color:#0085B2}
+.tooltip-error{font-family:'robotolight',sans-serif;font-size:12px;color:#B52A29;background:#FFE7E7;padding:8px 10px;margin-top:2px;border:1px solid #B52A29;border-radius:5px;display:none}
+.folio-link{font-family:'robotolight',sans-serif;font-size:14px;color:#0085B2;text-decoration:underline;cursor:pointer;display:inline-block;margin-top:5px}
+.folio-link:hover{color:#006690}
+
+/* Validar button: EXACT match — robotomedium, 110×41, padding 10px 30px */
+.btn-validar{
+  display:inline-block;
+  font-family:'robotomedium',sans-serif;
+  font-size:16px;
+  color:#fff;
+  background:#6BA3B7;
+  padding:10px 30px;
+  border:none;
+  border-radius:5px;
+  text-align:center;
+  cursor:pointer;
+  transition:background .2s;
 }
-body{font-family:var(--opensans);color:var(--text-dk);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.5}
-a{text-decoration:none;color:inherit}
-img{display:block}
+.btn-validar:hover{background:#5a8fa1}
 
-/* ========== BANNER IMPORTANTE ========== */
-.banner-imp{background:var(--green-lt);display:flex;align-items:center;justify-content:space-between;padding:4px 24px;font-family:var(--poppins);font-size:13px;font-weight:600;color:var(--text-dk);cursor:pointer;min-height:32px}
-.banner-imp svg{width:18px;height:18px;fill:var(--body-color);flex-shrink:0}
-.banner-imp .bi-left{display:flex;align-items:center;gap:8px}
+/* Spinner */
+.spinner{display:none;margin-top:15px}
+.spinner::after{content:'';display:inline-block;width:22px;height:22px;border:3px solid #6BA3B7;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ========== HEADER DESKTOP ========== */
-.hdr{background:var(--dark);height:80px;display:flex;align-items:center;padding:0 64px;position:sticky;top:0;z-index:200}
-.hdr-logo{margin-right:48px;flex-shrink:0}
-.hdr-logo img{height:75px;border-radius:12px;object-fit:contain;}
-.hdr-nav{display:flex;align-items:stretch;height:80px;gap:0}
-.hdr-nav a{color:#fff;font-family:var(--poppins);font-size:14px;font-weight:400;padding:0 24px;display:flex;align-items:center;transition:background .2s}
-.hdr-nav a:hover{background:rgba(255,255,255,.08)}
-.hdr-nav a.active{background:var(--cyan);color:#000;font-weight:600}
-.hdr-btns{display:flex;align-items:center;gap:12px;margin-left:auto}
-.btn-cambiate{color:#fff;border:1px solid var(--green);border-radius:2px;padding:8px 24px;font-family:var(--poppins);font-size:14px;font-weight:600;transition:all .2s}
-.btn-cambiate:hover{background:var(--green)}
-.btn-micuenta{background:var(--green);color:#fff;border:none;border-radius:2px;padding:8px 16px;font-family:var(--poppins);font-size:14px;cursor:pointer;transition:background .2s;display:inline-block}
-.btn-micuenta:hover{background:var(--green-dk)}
-.btn-search{background:rgba(255,255,255,.1);border:none;border-radius:4px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:4px}
-.btn-search svg{width:20px;height:20px;fill:#fff}
+/* Results */
+.result-box{display:none;margin-top:20px;padding:15px 20px;border-radius:5px;font-family:'robotoregular',sans-serif;font-size:14px}
+.result-invalid{background:#FFE7E7;border:1px solid #B52A29;color:#B52A29}
+.result-valid{background:#E8F5E9;border:1px solid #43a047;color:#2e7d32}
+.result-valid h2{font-size:18px;font-weight:400;margin-bottom:5px;font-family:'robotomedium',sans-serif}
+.result-valid .vig{font-size:13px;margin-bottom:15px}
+.result-valid .nombre{font-size:15px;font-weight:700;margin-bottom:12px}
+.btn-download{display:inline-block;background:#6BA3B7;color:#fff;padding:10px 25px;border:none;border-radius:5px;font-size:14px;cursor:pointer;font-family:'robotoregular',sans-serif}
+.btn-download:hover{background:#5a8fa1}
+.btn-volver{display:block;margin-top:12px;color:#0085B2;font-size:14px;text-decoration:underline;cursor:pointer}
+.btn-inicio{display:inline-block;margin-top:6px;color:#0085B2;font-size:14px}
 
-/* ========== SUB-NAV ========== */
-.subnav{background:#fff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;justify-content:center;padding:0 64px;height:48px;gap:36px}
-.subnav a{font-family:var(--poppins);font-size:13px;color:var(--body-color);display:flex;align-items:center;gap:4px;padding:12px 0;transition:color .2s}
-.subnav a:hover{color:var(--green)}
-.subnav a svg{width:14px;height:14px;fill:currentColor}
-.subnav .acc-link{margin-left:auto;display:flex;align-items:center;gap:6px;font-weight:500}
-.subnav .acc-link svg{width:22px;height:22px}
+/* ========== MODAL ========== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:5000;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;border-radius:4px;padding:25px;max-width:500px;width:100%;position:relative;box-shadow:0 5px 30px rgba(0,0,0,.3)}
+.modal-box .close-btn{position:absolute;top:10px;right:15px;font-size:26px;background:none;border:none;color:#999;line-height:1}
+.modal-box h4{font-family:'robotomedium',sans-serif;font-size:16px;color:#4C4C4A;margin-bottom:12px;padding-right:25px}
+.modal-box p{font-family:'robotolight',sans-serif;font-size:14px;color:#666;margin-bottom:15px}
+.modal-box img{width:100%;border:1px solid #eee}
 
-/* ========== MOBILE HEADER ========== */
-.hdr-m{display:none;background:var(--green);height:64px;padding:0 16px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
-.hdr-m .logo-m img{height:36px;border-radius:4px;}
-.hdr-m .mr{display:flex;align-items:center;gap:8px}
-.btn-mc-m{background:0 0;color:#fff;border:2px solid #fff;border-radius:2px;padding:6px 12px;font-family:var(--poppins);font-size:13px;font-weight:600;cursor:pointer}
-.m-icon{background:0 0;border:0;cursor:pointer;display:flex;padding:4px}
-.m-icon svg{width:24px;height:24px;fill:#fff}
+/* ========== FOOTER ========== */
+.footer-navy{background:#001F56;display:flex}
+.footer-navy .__enlaces{display:flex;padding:30px 0 30px 140px;flex:1}
+.footer-navy .__col{flex:1;padding-right:15px}
+.footer-navy .__col p.col-title{font-family:'robotoregular',sans-serif;font-size:16px;font-weight:700;color:#BFC9CC;margin-bottom:15px}
+.footer-navy .__col a{font-family:'robotoregular',sans-serif;font-size:13px;color:#BFC9CC;line-height:30px;display:block}
+.footer-navy .__col a:hover{color:#fff}
+.footer-navy .__col a::before{content:'›';margin-right:6px;color:#6BA3B7}
+.canales-panel{background:#6BA3B7;padding:30px 40px;min-width:300px}
+.canales-panel .cp-title{font-family:'robotoregular',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:20px}
+.canal-item{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:#fff;font-family:'robotoregular',sans-serif;font-size:16px}
+.canal-item img{width:24px;height:24px;filter:brightness(0) invert(1)}
+.canal-item a{color:#fff}
+.footer-white{background:#fff;padding:30px 0}
+.footer-logo-social{display:flex;align-items:center;justify-content:space-between;padding-bottom:20px}
+.footer-logo-social .logo-ft img{height:50px}
+.social-row{display:flex;gap:15px;align-items:center}
+.social-row a img{width:25px;height:25px}
+.footer-links-row{display:flex;justify-content:center;padding:0}
+.footer-links-row li{padding:0 30px;border-right:1px solid rgba(72,77,69,.5)}
+.footer-links-row li:last-child{border-right:none}
+.footer-links-row a{display:flex;align-items:center;gap:8px;font-family:'robotoregular',sans-serif;font-size:16px;color:#BFC9CC}
+.footer-links-row a img{width:20px;height:20px}
+.footer-sp{background:#E9E9E9;padding:15px 0}
+.footer-sp .container{display:flex;align-items:center;justify-content:center;gap:20px}
+.footer-sp img{height:45px}
+.footer-sp p{font-family:'robotoregular',sans-serif;font-size:13px;color:#4C4C4A}
+.footer-sp a{color:#0085B2;text-decoration:underline}
+.footer-copy{background:#484D45;padding:30px 0;text-align:center}
+.footer-copy p{font-family:'robotoregular',sans-serif;font-size:14px;color:#BFC9CC}
 
-/* ========== BREADCRUMB ========== */
-.bc{max-width:1200px;margin:32px auto;padding:0 16px;font-size:16px;color:var(--light)}
-.bc a{color:var(--light)}.bc a:hover{text-decoration:underline}
-.bc .cur{color:var(--green)}.bc .s{margin:0 8px}
-
-/* ========== CONTENT ========== */
-.content{max-width:1200px;margin:0 auto;padding:0 16px}
-.ptitle{font-family:var(--poppins);font-size:32px;font-weight:500;color:var(--green);margin-bottom:16px;line-height:1.3}
-.pdesc{font-size:16px;color:var(--body-color);line-height:24px;margin-bottom:16px}
-.headband{background:var(--green-lt);font-size:16px;color:var(--body-color);line-height:24px;padding:2px 8px;margin:0 0 24px}
-
-/* ========== FORM ========== */
-.fcert{padding:8px 0 40px}
-.frow{display:flex;align-items:center;margin-bottom:20px}
-.frow .flbl{width:37.5%;text-align:right;padding-right:16px;font-size:16px;color:var(--text-dk);flex-shrink:0}
-.frow .finp{width:25%;flex-shrink:0}
-.frow input{width:100%;height:32px;border:1px solid var(--border);border-radius:4px;padding:4px 11px;font-size:16px;font-family:var(--opensans);color:var(--text-dk);outline:0;transition:border-color .2s,box-shadow .2s}
-.frow input::placeholder{color:#bfbfbf}
-.frow input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(129,189,0,.15)}
-.frow input.ierr{border-color:#ff4d4f}
-.ferr{color:#ff4d4f;font-size:13px;margin-top:4px;display:none}
-.frow-btn{display:flex;margin-top:60px}
-.frow-btn .flbl{width:37.5%;flex-shrink:0}
-.frow-btn .finp{width:25%;flex-shrink:0}
-.btnv{width:180px;height:32px;border:1px solid var(--border);border-radius:4px;font-size:16px;font-family:var(--opensans);cursor:pointer;transition:all .3s;background:#f5f5f5;color:rgba(0,0,0,.25)}
-.btnv.on{background:var(--green);color:#fff;border-color:var(--green)}
-.btnv.on:hover{background:var(--green-dk)}
-.btnv:disabled{cursor:not-allowed}
-
-/* ========== RESULT ========== */
-.rbox{display:none;margin-top:20px;padding:16px 20px;border-radius:4px;font-size:14px;line-height:1.7;margin-left:37.5%;max-width:25%}
-.rbox.ok{background:#f6ffed;border:1px solid #b7eb8f;color:#135200}
-.rbox.no{background:#fff2f0;border:1px solid #ffccc7;color:#a8071a}
-
-/* ========== LOADING ========== */
-.lov{display:none;position:fixed;inset:0;background:rgba(255,255,255,.65);z-index:999;justify-content:center;align-items:center}
-.lov.show{display:flex}
-.spn{width:44px;height:44px;border:4px solid #eee;border-top-color:var(--green);border-radius:50%;animation:sp .7s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-
-/* ========== CONTACT SECTION ========== */
-.contact-sec{padding:48px 32px 40px;background:#fff}
-.contact-inner{max-width:1200px;margin:0 auto}
-.ctitle{font-family:var(--poppins);font-size:20px;font-weight:700;color:var(--dark);margin-bottom:32px;text-align:left;font-style:italic}
-.cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
-.ccol{text-align:center}
-.csub{font-family:var(--poppins);font-size:14px;font-weight:700;color:#333;margin-bottom:12px;font-style:italic}
-.phone-r{display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;color:var(--body-color)}
-.phone-r svg{width:18px;height:18px;fill:var(--body-color)}
-.sicons{display:flex;justify-content:center;gap:14px}
-.sicons a{display:flex;width:32px;height:32px;align-items:center;justify-content:center;transition:opacity .2s}
-.sicons a:hover{opacity:.7}
-.sicons a svg{width:28px;height:28px}
-.abadges{display:flex;justify-content:center;gap:10px}
-.abadges img{height:36px}
-
-/* ========== FOOTER CONTAINER ========== */
-.ftr-wrap{background:var(--footer-bg)}
-.ftr-brand{max-width:1200px;margin:0 auto;padding:40px 32px 16px}
-.ftr-brand h1{font-family:var(--poppins);font-size:20px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:-1px}
-.ftr-cols{max-width:1200px;margin:0 auto;padding:0 32px 32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
-.ftr-col h3{font-family:var(--poppins);font-size:20px;font-weight:700;color:var(--gray);margin-bottom:16px;letter-spacing:-1px}
-.ftr-col a{display:block;font-size:14px;color:var(--body-color);line-height:35px;transition:color .2s}
-.ftr-col a:hover{color:var(--green)}
-
-/* Footer accordions (mobile) */
-.ftr-acc{display:none;padding:0 16px}
-.acc-item{border-bottom:1px solid #e8e8e8}
-.acc-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer;font-family:var(--poppins);font-size:16px;font-weight:500;color:var(--text-dk)}
-.acc-hdr .arr{color:#bbb;transition:transform .3s;font-size:20px}
-.acc-hdr.open .arr{transform:rotate(90deg)}
-.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.acc-body-in{padding:0 0 16px;font-size:14px;color:var(--body-color);line-height:2}
-.acc-body-in a{display:block;color:var(--body-color)}
-
-/* ========== DISCLAIMER + DIGICERT ========== */
-.disc-sec{max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;align-items:flex-start;gap:32px;background:var(--footer-bg)}
-.disc-text{font-size:14px;color:var(--gray);line-height:1.7;flex:1}
-.digi{flex-shrink:0}.digi img{height:70px}
-
-/* ========== COPYRIGHT ========== */
-.copy-bar{max-width:1200px;margin:0 auto;padding:16px 32px 24px;display:flex;justify-content:space-between;font-size:14px;color:var(--gray);background:var(--footer-bg)}
-
-/* ========== SP BANNER (black) ========== */
-.sp-bar{background:#000;color:#fff;text-align:center;padding:10px 24px;font-size:14px;font-weight:600;line-height:1.5}
-.sp-bar a{color:rgb(116,121,215);font-weight:700;text-decoration:none}
-.sp-bar a:hover{text-decoration:underline}
-
-/* ========== CHATBOT ========== */
-.chatbot{position:fixed;bottom:24px;right:24px;z-index:500;cursor:pointer}
-.chat-hola{background:var(--green);color:#fff;font-family:var(--poppins);font-size:13px;font-weight:700;font-style:italic;padding:2px 12px;border-radius:10px;position:absolute;top:-8px;right:10px;z-index:2;transform:rotate(-10deg)}
-.chat-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,.15);background:var(--green);display:flex;align-items:center;justify-content:center}
-.chat-avatar svg{width:60px;height:60px}
+/* Sofia */
+.fixed-image{position:fixed;bottom:0;right:20px;z-index:2000;width:94px;height:150px}
+.fixed-image img{width:94px;height:150px;cursor:pointer}
 
 /* ========== RESPONSIVE ========== */
-@media(max-width:992px){
-  .hdr,.subnav,.banner-imp{display:none}
-  .hdr-m{display:flex}
-  .bc{margin:16px auto;font-size:13px}
-  .ptitle{font-size:24px}
-  .pdesc{font-size:15px}
-  .headband{font-size:14px}
-  .frow{flex-direction:column;align-items:stretch}
-  .frow .flbl{width:100%;text-align:left;padding-right:0;margin-bottom:6px;font-size:14px}
-  .frow .finp{width:100%}
-  .frow input{height:44px}
-  .frow-btn{flex-direction:column;align-items:stretch;margin-top:8px}
-  .frow-btn .flbl{display:none}
-  .frow-btn .finp{width:100%}
-  .btnv{width:100%;height:44px}
-  .rbox{margin-left:0;max-width:100%}
-  .cgrid{grid-template-columns:1fr;gap:28px}
-  .ctitle{text-align:center}
-  .ftr-brand{padding:24px 16px 12px}
-  .ftr-cols{display:none}
-  .ftr-acc{display:block}
-  .disc-sec{flex-direction:column;padding:24px 16px;text-align:center}
-  .digi{margin:16px auto 0}
-  .copy-bar{flex-direction:column;text-align:center;gap:8px;padding:16px}
-  .chatbot{bottom:16px;right:16px}
-  .chat-avatar{width:60px;height:60px}
+@media(max-width:1100px){
+  .footer-navy .__enlaces{padding-left:30px}
+  .canales-panel{min-width:250px;padding:20px 25px}
+  .sub-menu li{padding:18px 8px}
+  .sub-menu li a{font-size:14px}
+  .buscador{width:170px}
 }
-@media(max-width:480px){.ptitle{font-size:20px}}
+@media(max-width:768px){
+  .contenedor-img-boton{display:flex}
+  .mobile-blue-bar{display:flex}
+  .header-top{display:none}
+  .wrap-submenu{display:none}
+  .breadcrumbs{font-size:14px;padding:15px 0}
+  .head-descent h1{font-size:26px}
+  /* Form stacks vertically */
+  .center-col{width:100%;margin:0}
+  .form-row{flex-direction:column;margin:0}
+  .form-row .label-col,.form-row .input-col{width:100%;padding:0}
+  .form-row .label-col{margin-bottom:8px}
+  .white-box{padding:20px 15px}
+  /* Button full-width on mobile */
+  .btn-validar{width:100%;display:block;padding:13px}
+  /* Footer */
+  .footer-navy{flex-direction:column}
+  .footer-navy .__enlaces{flex-direction:column;padding:30px 20px}
+  .footer-navy .__col{margin-bottom:20px}
+  .canales-panel{min-width:100%;padding:25px 20px}
+  .footer-logo-social{flex-direction:column;gap:20px;text-align:center}
+  .social-row{justify-content:center}
+  .footer-links-row{flex-direction:column;align-items:center;gap:12px}
+  .footer-links-row li{border-right:none;padding:5px 0}
+  .footer-sp .container{flex-direction:column;text-align:center;gap:10px}
+  .fixed-image{width:70px;height:112px;right:10px}
+  .fixed-image img{width:70px;height:112px}
+}
+@media(max-width:480px){
+  .head-descent h1{font-size:22px}
+  .white-box{padding:15px 12px}
+  .modal-box{padding:20px 15px}
+}
 </style>
 </head>
 <body>
 
-<!-- BANNER IMPORTANTE -->
-<div class="banner-imp">
-  <div class="bi-left">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-    <span>Importante</span>
+<!-- FLOATING BUTTONS -->
+<a href="#" class="fl-accesibilidad" title="Accesibilidad">♿</a>
+<a href="#" class="new-btn-flotante fl-cambiate"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/logo-btn-costado-trasnparente.png" alt=""><p>Cámbiate</p></a>
+<a href="#" class="new-btn-flotante fl-certificados"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/certificados-btn-costado.png" alt=""><p>Certificados</p></a>
+<a href="#" class="new-btn-flotante fl-sucursales"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/08/sucursales-btn-costado.png" alt=""><p>Sucursales</p></a>
+
+<!-- HEADER -->
+<header class="header-site">
+  <!-- MOBILE -->
+  <div class="contenedor-img-boton">
+    <div><a href="https://www.afphabitat.cl/" class="logo-mobile"><img src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat"></a></div>
+    <div><a href="#" class="btn-ingresar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Ingresar</a></div>
   </div>
-  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-</div>
-
-<!-- HEADER DESKTOP -->
-<div class="hdr">
-  <a href="https://nueva.afpmodelo.cl/" class="hdr-logo">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20MODELO.png" alt="AFP Modelo">
-  </a>
-  <div class="hdr-nav">
-    <a href="https://nueva.afpmodelo.cl/afiliados">Afiliados</a>
-    <a href="https://nueva.afpmodelo.cl/pensionados">Pensionados</a>
-    <a href="https://nueva.afpmodelo.cl/empleadores" class="active">Empleadores</a>
+  <div class="mobile-blue-bar">
+    <button class="c-hamburger" id="hamburger"><span></span></button>
+    <button class="mobile-search-icon">🔍</button>
   </div>
-  <div class="hdr-btns">
-    <a href="https://cambiate.afpmodelo.cl/" class="btn-cambiate">Cámbiate a Modelo</a>
-    <a href="https://nueva.afpmodelo.cl/portalprivado/user/login" class="btn-micuenta">Mi cuenta</a>
-    <button class="btn-search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+  <!-- DESKTOP TOP BLUE -->
+  <div class="container header-top">
+    <nav class="nav-superior"><ul>
+      <li><a href="https://www.afphabitat.cl/" class="active">PERSONAS</a></li>
+      <li><a href="https://empleadores.afphabitat.cl">EMPLEADORES</a></li>
+      <li><a href="https://inversionistas.afphabitat.cl">INVERSIONISTAS</a></li>
+    </ul></nav>
+    <div class="login-habitat"><a href="#" class="btn-sucursal"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Sucursal virtual</a></div>
   </div>
-</div>
-
-<!-- SUB-NAV -->
-<div class="subnav">
-  <a href="#">Cámbiate a Modelo <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
-  <a href="#">Productos de Ahorro <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
-  <a href="#">Trámites y herramientas <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
-  <a href="#">Red Modelo <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
-  <a href="#" class="acc-link">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="6" r="1.5" fill="currentColor"/><path d="M10 10h2v7m-2 0h4"/></svg>
-    Accesibilidad
-  </a>
-</div>
-
-<!-- MOBILE HEADER -->
-<div class="hdr-m">
-  <a href="https://nueva.afpmodelo.cl/" class="logo-m">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO_MODELO_MOBILE.jpeg" alt="AFP Modelo Mobile">
-  </a>
-  <div class="mr">
-    <button class="btn-mc-m">Mi cuenta</button>
-    <button class="m-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
-    <button class="m-icon"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
+  <!-- DESKTOP SUBMENU WHITE -->
+  <div class="wrap-submenu"><div class="container contenedor-menu">
+    <a href="https://www.afphabitat.cl/" class="logo-link"><img src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat"></a>
+    <a href="#" class="btn-cambiate">Cámbiate</a>
+    <div class="sub-menu"><ul>
+      <li><a href="#">Productos <span class="arrow">▾</span></a></li>
+      <li><a href="#">Pensiones <span class="arrow">▾</span></a></li>
+      <li><a href="#">Multifondos <span class="arrow">▾</span></a></li>
+      <li><a href="#">Herramientas y Servicios <span class="arrow">▾</span></a></li>
+      <li><a href="#">Ayuda <span class="arrow">▾</span></a></li>
+    </ul></div>
+    <div class="buscador"><input type="text" placeholder="¿Qué buscas?"><button class="icon-search">🔍</button></div>
+  </div></div>
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#">Productos</a><a href="#">Pensiones</a><a href="#">Multifondos</a>
+    <a href="#">Herramientas y Servicios</a><a href="#">Ayuda</a>
+    <a href="https://empleadores.afphabitat.cl">Empleadores</a>
+    <a href="https://inversionistas.afphabitat.cl">Inversionistas</a>
   </div>
-</div>
+</header>
 
-<!-- BREADCRUMB -->
-<div class="bc">
-  <a href="https://nueva.afpmodelo.cl/">Home</a><span class="s">/</span>
-  <a href="https://nueva.afpmodelo.cl/empleadores">Herramientas para empleadores</a><span class="s">/</span>
-  <span class="cur">Validar Certificados</span><span class="s">/</span>
-</div>
-
-<!-- CONTENT -->
-<div class="content">
-  <h1 class="ptitle">Valida certificados de AFP Modelo</h1>
-  <p class="pdesc">Con esta herramienta puedes validar los certificados emitidos por AFP Modelo para usarlos en trámites financieros, como gestiones con entidades públicas o privadas, y en trámites personales como acreditar antecedentes para arriendos u otros fines.</p>
-  <div class="headband">Si el certificado es válido, se descargará el archivo automáticamente.</div>
-
-  <div class="fcert">
-    <div class="frow">
-      <label class="flbl" for="rut">RUT asociado al certificado</label>
-      <div class="finp">
-        <input type="text" id="rut" placeholder="12.345.678-9" maxlength="12" autocomplete="off">
-        <div class="ferr" id="rut-err">Ingresa un RUT válido</div>
+<!-- MAIN -->
+<main>
+  <div class="xs-container"><div class="container">
+    <div class="breadcrumbs"><a href="https://www.afphabitat.cl/">Habitat</a> &gt; <a href="https://www.afphabitat.cl/herramientas-y-servicios/">Herramientas y servicios</a> &gt; Validar Certificados</div>
+    <div class="head-descent"><h1>Validar Certificados</h1></div>
+    <div class="white-box">
+      <div class="separate__content">
+        <p>Esta herramienta permite que las distintas Instituciones Financieras, Entidades Públicas, Privados y otros, puedan validar la vigencia y veracidad de los certificados emitidos por los distintos canales de atención de AFP Habitat: Sucursales, Habiexpress, Contact Center y Canal Internet.</p>
       </div>
-    </div>
-    <div class="frow">
-      <label class="flbl" for="folio">Folio</label>
-      <div class="finp">
-        <input type="text" id="folio" placeholder="Ingresa número de folio" autocomplete="off">
-        <div class="ferr" id="folio-err">Ingresa un folio válido</div>
-      </div>
-    </div>
-    <div class="frow-btn">
-      <div class="flbl"></div>
-      <div class="finp">
-        <button class="btnv" id="btnv" disabled>Validar Certificado</button>
-      </div>
-    </div>
-    <div class="rbox" id="rbox"></div>
-  </div>
-</div>
-
-<!-- LOADING -->
-<div class="lov" id="lov"><div class="spn"></div></div>
-
-<!-- CONTÁCTANOS -->
-<div class="contact-sec">
-  <div class="contact-inner">
-    <h2 class="ctitle">Contáctanos</h2>
-    <div class="cgrid">
-      <div class="ccol">
-        <h4 class="csub">Nuestra central telefónica</h4>
-        <div class="phone-r">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          <span>600 828 7200 / 2 2828 7200</span>
+      <div class="separate__content">
+        <!-- Form: center-col (61%) → row with col4 (label) + col8 (input+btn) -->
+        <div class="center-col">
+          <div class="form-row">
+            <div class="label-col"><label for="folio">Ingresa el folio del certificado a validar</label></div>
+            <div class="input-col">
+              <div class="form__group"><input type="text" id="folio" name="folio" autocomplete="off"></div>
+              <div class="tooltip-error" id="errorMsg">Debe ingresar el numero de folio</div>
+              <a class="folio-link" id="openModal">¿Dónde encuentro el folio de un certificado?</a>
+            </div>
+          </div>
+          <div class="form-row" style="margin-top:20px">
+            <div class="label-col"></div>
+            <div class="input-col"><button class="btn-validar" id="btnValidar">Validar</button></div>
+          </div>
         </div>
-      </div>
-      <div class="ccol">
-        <h4 class="csub">Nuestras redes sociales</h4>
-        <div class="sicons">
-          <a href="https://www.facebook.com/afpmodelo" target="_blank"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-          <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="#000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="https://www.instagram.com/afpmodelo" target="_blank"><svg viewBox="0 0 24 24" fill="#E4405F"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-          <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-          <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-          <a href="#" target="_blank"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        <div class="spinner" id="spinner"></div>
+        <div class="result-box result-invalid" id="rInvalid">El certificado se encuentra expirado o no es válido.</div>
+        <div class="result-box result-valid" id="rValid">
+          <h2>El certificado es válido y está vigente.</h2>
+          <p class="vig">Tiene 30 días de vigencia desde su fecha de emisión</p>
+          <p class="nombre" id="rNombre"></p>
+          <button class="btn-download" id="btnDownload">Descargar copia del certificado</button>
+          <a class="btn-volver" id="btnVolver">Volver a validar otro certificado</a><br>
+          <a class="btn-inicio" href="https://www.afphabitat.cl/">Volver al inicio</a>
         </div>
       </div>
     </div>
+  </div></div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <h4>¿Dónde encuentro el folio de un certificado?</h4>
+    <p>El folio de los certificados se encuentran al final del documento donde aparece: FOLIO Nº</p>
+    <img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/modal-folio.png" alt="Folio">
   </div>
 </div>
 
-<!-- FOOTER WRAP -->
-<div class="ftr-wrap">
-  <div class="ftr-brand"><h1>AFP Modelo</h1></div>
-  <div class="ftr-cols">
-    <div class="ftr-col">
-      <h3>Sobre AFP Modelo</h3>
-      <a href="#">Código de ética y conducta</a><a href="#">Memoria Anual</a><a href="#">Estados Financieros</a><a href="#">Políticas y Estatutos</a><a href="#">Canal de Denuncia</a><a href="#">Directorio y Administración</a><a href="#">Estructura de Comisiones</a>
+<!-- FOOTER -->
+<div class="footer-navy">
+  <div class="__enlaces">
+    <div class="__col"><p class="col-title">Productos</p><a href="#">Tu APV</a><a href="#">Tu Cuenta 2</a><a href="#">Tu Depósito Convenido</a><a href="#">Tus Ahorros en Habitat</a></div>
+    <div class="__col"><p class="col-title">Servicios</p><a href="#">Certificados y Trámites</a><a href="#">Descarga de Formularios</a><a href="#">Tu Depósito Directo en Línea</a><a href="#">Evolución Valor Cuota</a><a href="#">Evolución Rentabilidad</a><a href="#">Fallecidos con Saldo</a><a href="#">Giro en Línea Cuenta 2</a><a href="#">Simula tu Pensión</a><a href="#">Validador de Certificados</a></div>
+    <div class="__col"><p class="col-title">Nuestra Empresa</p><a href="#">Certificado de Seguridad</a><a href="#">Comisiones Habitat</a><a href="#">Conversatorios</a><a href="#">Cuenta Pública 2024</a><a href="#">Estatutos y EEFF</a><a href="#">Organización, misión y visión</a><a href="#">Políticas AFP Habitat</a><a href="#">Reporte y Riesgos Financieros</a><a href="#">Trabaja con Nosotros</a><p class="col-title" style="margin-top:20px">Sitios Externos</p><a href="#">Consulta Rezagos</a><a href="#">Información Enersis y Endesa</a></div>
+    <div class="__col"><p class="col-title">Ayuda</p><a href="#">Canales de Atención</a><a href="#">Canal de Denuncias</a><a href="#">Consejos de Seguridad</a><a href="#">Ley de Pensión de Alimentos</a><a href="#">Solicita tu Clave Habitat</a><a href="#">Solicita tu Clave de Seguridad</a><a href="#">Olvidaste tu Clave Habitat</a><a href="#">Sucursales</a><a href="#">Habitat Móvil</a><a href="#">Reforma Previsional</a></div>
+  </div>
+  <div class="canales-panel">
+    <p class="cp-title">Canales de Atención</p>
+    <div class="canal-item"><img src="https://www.afphabitat.cl/wp-content/uploads/2024/12/contactcenter-icon.svg" alt=""><a href="tel:6002202000">600 220 2000 - Contact Center</a></div>
+    <div class="canal-item"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-celular-1.png" alt=""><a href="tel:+56924168200">+569 2416 8200 - Desde el extranjero</a></div>
+    <div class="canal-item"><img src="https://www.afphabitat.cl/wp-content/uploads/2025/01/ic-sharp-whatsapp-1.svg" alt=""><a href="https://api.whatsapp.com/send?phone=56959821111" target="_blank">+569 59821111 - WhatsApp</a></div>
+    <div class="canal-item"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-blanco-twitter.png" alt=""><a href="#" target="_blank">@Habitat_Ayuda</a></div>
+  </div>
+</div>
+<div class="footer-white"><div class="container">
+  <div class="footer-logo-social">
+    <div class="logo-ft"><img src="https://www.afphabitat.cl/wp-content/uploads/2022/10/logo_nuevo_afphabitat_full.svg" alt="AFP Habitat"></div>
+    <div class="social-row">
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-twitter-x.png" alt="X"></a>
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-facebook-red.png" alt="Fb"></a>
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-linkedin-red.png" alt="In"></a>
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-youtube-red.png" alt="YT"></a>
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-instagram-red.png" alt="IG"></a>
+      <a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2025/01/icono-whatsApp-rojo.svg" alt="WA"></a>
     </div>
-    <div class="ftr-col">
-      <h3>Estamos para ayudarte</h3>
-      <a href="#">Centro de Contacto</a><a href="#">Preguntas Frecuentes</a><a href="#">Sucursales</a><a href="#">Formulario de Contacto</a><a href="#">Mapa del Sitio</a><a href="#">Biblioteca</a>
-    </div>
-    <div class="ftr-col">
-      <h3>Links de interés</h3>
-      <a href="#">PREVIRED</a><a href="#">Superintendencia de Pensiones</a><a href="#">Administradora de Fondos de Cesantía</a><a href="#">Instituto de Previsión Social</a>
-    </div>
   </div>
-  <div class="ftr-acc">
-    <div class="acc-item"><div class="acc-hdr" onclick="tAcc(this)"><span>Sobre AFP Modelo</span><span class="arr">›</span></div><div class="acc-body"><div class="acc-body-in"><a href="#">Código de ética y conducta</a><a href="#">Memoria Anual</a><a href="#">Estados Financieros</a><a href="#">Políticas y Estatutos</a><a href="#">Canal de Denuncia</a><a href="#">Directorio y Administración</a><a href="#">Estructura de Comisiones</a></div></div></div>
-    <div class="acc-item"><div class="acc-hdr" onclick="tAcc(this)"><span>Estamos para ayudarte</span><span class="arr">›</span></div><div class="acc-body"><div class="acc-body-in"><a href="#">Centro de Contacto</a><a href="#">Preguntas Frecuentes</a><a href="#">Sucursales</a><a href="#">Formulario de Contacto</a><a href="#">Mapa del Sitio</a><a href="#">Biblioteca</a></div></div></div>
-    <div class="acc-item"><div class="acc-hdr" onclick="tAcc(this)"><span>Links de interés</span><span class="arr">›</span></div><div class="acc-body"><div class="acc-body-in"><a href="#">PREVIRED</a><a href="#">Superintendencia de Pensiones</a><a href="#">Administradora de Fondos de Cesantía</a><a href="#">Instituto de Previsión Social</a></div></div></div>
-    <div class="acc-item"><div class="acc-hdr" onclick="tAcc(this)"><span>Información legal</span><span class="arr">›</span></div><div class="acc-body"><div class="acc-body-in"><a href="#">Política de privacidad</a><a href="#">Términos y condiciones</a></div></div></div>
-  </div>
-  <div class="disc-sec">
-    <p class="disc-text">La rentabilidad es variable, por lo que nada garantiza que las rentabilidades pasadas se repitan en el futuro. Infórmese sobre la rentabilidad de su Fondo de Pensiones, las comisiones y la calidad de servicio de las AFP en el sitio web de la Superintendencia de Pensiones: www.spensiones.cl". Estructura de comisiones por depósitos de cotizaciones vigentes - Capital: 1,44%, Cuprum: 1,44%, Habitat: 1,27%, Modelo: 0,58%, Planvital: 1,16%, Provida: 1,45%, Uno: 0,46% – Para afiliados dependientes, independientes y voluntarios. Número de afiliados por AFP vigente según Informe Estadístico Mensual de Afiliados y Cotizantes de la Superintendencia de Pensiones. Primer lugar en experiencia de clientes según ranking PXI – Praxis Xperience Index 2025 para el Sector AFP</p>
-    <div class="digi"><img src="https://afpmodelodevopssa.blob.core.windows.net/afpmodelodevopssac/assets/Certificado_logo_92a7deb53b.svg" alt="DigiCert"></div>
-  </div>
-  <div class="copy-bar">
-    <span>Todas las transacciones y operaciones de este sitio web están sujetas a horario de Chile Continental.</span>
-    <span>© 2026 AFP Modelo. Todos los Derechos Reservados.</span>
-  </div>
-</div>
+  <ul class="footer-links-row">
+    <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-documento-red.png" alt="">Comunicados</a></li>
+    <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-shield-red.png" alt="">Consejos de Seguridad</a></li>
+    <li><a href="#"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/icon-politicas-red.png" alt="">Política de Privacidad y Seguridad</a></li>
+  </ul>
+</div></div>
+<div class="footer-sp"><div class="container"><img src="https://www.afphabitat.cl/wp-content/uploads/2023/12/logo-sp.png" alt="SP"><p>Entrega tu opinión a la SUPERINTENDENCIA DE PENSIONES sobre la calidad de servicio de tu AFP <a href="https://es.research.net/r/spensiones" target="_blank">comienza aquí</a></p></div></div>
+<div class="footer-copy"><div class="container"><p>© 2026 AFP Habitat S.A. Todos los derechos reservados</p></div></div>
 
-<!-- SP BANNER -->
-<div class="sp-bar">
-  Entrega tu opinión a la <a href="https://es.research.net/r/spensiones" target="_blank">SUPERINTENDENCIA DE PENSIONES</a> sobre la calidad de servicio de tu AFP.
-</div>
+<!-- Sofia -->
+<div class="fixed-image"><a href="https://wa.me/56959821111" target="_blank"><img src="https://www.afphabitat.cl/wp-content/themes/habitat/img/Sofia_.png" alt="Sofia"></a></div>
 
-<!-- CHATBOT -->
-<div class="chatbot" id="chatbot">
-  <div class="chat-hola">Hola!</div>
-  <div class="chat-avatar">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/Dise%C3%B1o%20sin%20t%C3%ADtulo%20(2).png" alt="Chat AFP Modelo" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-  </div>
-</div>
-
+<!-- JS -->
 <script>
-function tAcc(h){const b=h.nextElementSibling;const o=h.classList.contains('open');document.querySelectorAll('.acc-hdr').forEach(x=>{x.classList.remove('open');x.nextElementSibling.style.maxHeight=null});if(!o){h.classList.add('open');b.style.maxHeight=b.scrollHeight+'px'}}
-function fmtRut(v){let c=v.replace(/[^0-9kK]/g,'');if(!c)return'';let d=c.slice(-1),b=c.slice(0,-1);if(!b)return c;let f='',n=0;for(let i=b.length-1;i>=0;i--){f=b[i]+f;n++;if(n%3===0&&i>0)f='.'+f}return f+'-'+d}
-function clnRut(r){return r.replace(/[.\-]/g,'').toUpperCase()}
-function valRut(r){const c=clnRut(r);if(c.length<8||c.length>9)return false;const b=c.slice(0,-1),d=c.slice(-1);let s=0,m=2;for(let i=b.length-1;i>=0;i--){s+=parseInt(b[i])*m;m=m===7?2:m+1}let e=11-(s%11);if(e===11)e='0';else if(e===10)e='K';else e=String(e);return d===e}
-const ri=document.getElementById('rut'),fi=document.getElementById('folio'),bv=document.getElementById('btnv'),rb=document.getElementById('rbox'),lo=document.getElementById('lov');
-ri.addEventListener('input',function(){let p=this.selectionStart,ol=this.value.length;this.value=fmtRut(this.value);p+=(this.value.length-ol);this.setSelectionRange(p,p);chk()});
-fi.addEventListener('input',function(){this.value=this.value.replace(/[^0-9]/g,'');chk()});
-function chk(){const ok=clnRut(ri.value).length>=8&&fi.value.trim().length>0;bv.classList.toggle('on',ok);bv.disabled=!ok}
-bv.addEventListener('click',async function(){
-  rb.style.display='none';document.querySelectorAll('.ferr').forEach(e=>e.style.display='none');document.querySelectorAll('.frow input').forEach(i=>i.classList.remove('ierr'));
-  if(!valRut(ri.value)){document.getElementById('rut-err').style.display='block';ri.classList.add('ierr');return}
-  if(!fi.value.trim()){document.getElementById('folio-err').style.display='block';fi.classList.add('ierr');return}
-  lo.classList.add('show');
-  
-  // LOGICA MAKE
-  const rut=clnRut(ri.value);
-  const folio=fi.value.trim();
-  
-  try{
-    const res=await fetch('https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-            uuid: folio, 
-            rut: rut, 
-            folio: folio, 
-            entity:'modelo'
-        })
-    });
-    const data=await res.json();lo.classList.remove('show');
-    if(data.found&&data.pdf){
-      const bytes=atob(data.pdf);const arr=new Uint8Array(bytes.length);for(let i=0;i<bytes.length;i++)arr[i]=bytes.charCodeAt(i);
-      const blob=new Blob([arr],{type:'application/pdf'});const url=URL.createObjectURL(blob);
-      const a=document.createElement('a');a.href=url;a.download='certificado_afp_modelo_'+folio+'.pdf';document.body.appendChild(a);a.click();URL.revokeObjectURL(url);a.remove();
-      rb.className='rbox ok';rb.innerHTML='<strong>✓ Certificado válido</strong><br>El archivo se ha descargado automáticamente.'+(data.name?'<br>Nombre: '+data.name:'');rb.style.display='block';
-    }else{
-      rb.className='rbox no';
-      rb.innerHTML= data.message || 'No se encontró un certificado válido con los datos ingresados. Verifica el RUT y folio e intenta nuevamente.';
-      rb.style.display='block'
-    }
-  }catch(err){
-    lo.classList.remove('show');
-    rb.className='rbox no';
-    rb.innerHTML='Error al validar. Intenta nuevamente más tarde.';
-    rb.style.display='block'
-  }
+document.getElementById('hamburger').addEventListener('click',function(){document.getElementById('mobileNav').classList.toggle('open')});
+document.getElementById('openModal').addEventListener('click',function(){document.getElementById('modal').classList.add('show')});
+document.getElementById('closeModal').addEventListener('click',function(){document.getElementById('modal').classList.remove('show')});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show')});
+
+var WEBHOOK='https://hook.us2.make.com/iq6ps3txx1jaxr91mje7sx47ynbta3kb';
+var pdfData=null;
+function reset(){document.getElementById('rInvalid').style.display='none';document.getElementById('rValid').style.display='none';document.getElementById('errorMsg').style.display='none';document.getElementById('spinner').style.display='none';pdfData=null}
+
+document.getElementById('btnValidar').addEventListener('click',function(){
+  reset();
+  var f=document.getElementById('folio').value.trim();
+  if(!f){document.getElementById('errorMsg').style.display='block';document.getElementById('folio').focus();return}
+  document.getElementById('spinner').style.display='block';this.disabled=true;this.style.opacity='.6';
+  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uuid:f})})
+  .then(function(r){return r.json()})
+  .then(function(d){
+    document.getElementById('spinner').style.display='none';
+    document.getElementById('btnValidar').disabled=false;document.getElementById('btnValidar').style.opacity='1';
+    if(d.found){document.getElementById('rNombre').textContent=d.name||'';document.getElementById('rValid').style.display='block';if(d.pdf)pdfData=d.pdf}
+    else{document.getElementById('rInvalid').style.display='block'}
+  }).catch(function(){
+    document.getElementById('spinner').style.display='none';document.getElementById('btnValidar').disabled=false;document.getElementById('btnValidar').style.opacity='1';
+    document.getElementById('rInvalid').style.display='block';
+  });
 });
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!bv.disabled)bv.click()});
+
+document.getElementById('btnDownload').addEventListener('click',function(){
+  if(!pdfData){alert('No hay certificado disponible.');return}
+  try{var b=atob(pdfData),n=new Array(b.length);for(var i=0;i<b.length;i++)n[i]=b.charCodeAt(i);
+  var blob=new Blob([new Uint8Array(n)],{type:'application/pdf'});var u=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=u;a.download='certificado_habitat_'+document.getElementById('folio').value.trim()+'.pdf';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}catch(e){alert('Error al descargar.')}
+});
+
+document.getElementById('btnVolver').addEventListener('click',function(e){e.preventDefault();reset();document.getElementById('folio').value='';document.getElementById('folio').focus()});
+document.getElementById('folio').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnValidar').click()});
 </script>
 </body>
 </html>
